@@ -148,31 +148,25 @@
 		<ul class="nav navbar-nav side-nav">
 			<li class="active"><a href="../index.jsp"><i
 					class="fa fa-fw fa-dashboard"></i> Tổng quan</a></li>
-			<li><a href="charts.jsp"><i class="fa fa-fw fa-bar-chart-o"></i>
+			<li><a href="thongKeSoLuongDonHang.jsp"><i class="fa fa-fw fa-bar-chart-o"></i>
 					Thống kê chi tiết</a></li>
-			<li><a href="tables.jsp"><i class="fa fa-fw fa-table"></i>
+			<li><a href="thongKeSoLuongDonHang.jsp"><i class="fa fa-fw fa-table"></i>
 					Đơn hàng</a></li>
 			<li><a href="khachhang.jsp"><i class="fa fa-fw fa-table"></i>
 					Khách hàng</a></li>
-
 			<li><a href="javascript:;" data-toggle="collapse"
 				data-target="#demo"><i class="fa fa-fw fa-table"></i> Sản Phẩm <i
 					class="fa fa-fw fa-caret-down"></i></a>
 				<ul id="demo" class="collapse">
 					<%
 						IQuanLyLoaiHang qllh = new QuanLyLoaiHangDAO();
-
 						ArrayList<LoaiHang> listLoaiHang = new ArrayList<LoaiHang>();
-
 						listLoaiHang = qllh.getList();
-
 						for (LoaiHang lh : listLoaiHang) {
 					%>
-
 					<li><a
 						href="quanlysanpham.jsp?ma_loaihang=<%=lh.getMa_loaihang()%>"><%=lh.getTen_loaihang()%></a>
 					</li>
-
 					<%
 						}
 					%>
@@ -195,7 +189,7 @@
 						}
 					%>
 				</ul></li>
-			<li><a href="nguyen-lieu.jsp"><i class="fa fa-fw fa-table"></i>
+			<li><a href="nguyenLieu.jsp"><i class="fa fa-fw fa-table"></i>
 					Nguyên liệu</a></li>
 			<li><a href="cham-cong.jsp"><i class="fa fa-fw fa-table"></i>
 					Chấm công</a></li>
