@@ -86,7 +86,8 @@
 								INhanSu ns = new NhanSuDao();
 								int count = 0;
 								List<NhanSu> listNhanSu = new ArrayList<NhanSu>();
-								listNhanSu = ns.layDanhSachNhanSu();
+								String ma_loainhansu = request.getParameter("ma_loains");
+								listNhanSu = ns.layDanhSachNhanSuTheoLoaiNhanSu(ma_loainhansu);
 								for (NhanSu ns1 : listNhanSu) {
 									count++;
 							%>
