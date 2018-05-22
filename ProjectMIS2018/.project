@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>ProjectMIS2018_2</name>
+	<name>ProjectMIS2018</name>
 	<comment></comment>
 	<projects>
-		<project>mssql-jdbc-6.4.0.jre7</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
