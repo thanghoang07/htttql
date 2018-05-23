@@ -3,7 +3,7 @@
 <%@page import="model.NguyenLieu"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.INguyenLieu"%>
-<%@page import="dao.QuanLyNguyenLieu"%>
+<%@page import="dao.QuanLyNguyenLieuDAO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -76,12 +76,12 @@
 						</thead>
 						<tbody>
 							<%
-								INguyenLieu ngl = new QuanLyNguyenLieu();
-								int count = 0;
-								List<NguyenLieu> listNguyenLieu = new ArrayList<NguyenLieu>();
-								listNguyenLieu = ngl.getList();
-								for (NguyenLieu nl : listNguyenLieu) {
-									count++;
+								INguyenLieu ngl = new QuanLyNguyenLieuDAO();
+													int count = 0;
+													List<NguyenLieu> listNguyenLieu = new ArrayList<NguyenLieu>();
+													listNguyenLieu = ngl.getList();
+													for (NguyenLieu nl : listNguyenLieu) {
+														count++;
 							%>
 							<tr>
 								<td><input type="checkbox" value=""></td>

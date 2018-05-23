@@ -1,87 +1,101 @@
 package model;
 
+import java.util.List;
+
 public class SanPham {
-	
-	private String ma_sp;
-	private String ten_sp;
-	private int soluong;
-	private double gia;
-	private String kichthuoc;
-	private String ma_loaihang;
-	private String url_hinh;
-	
-	public SanPham() {
-	}
 
-	public SanPham(String ma_sp, String ten_sp, int soluong, double gia, String kichthuoc, String ma_loaihang,
-			String url_hinh) {
-		this.ma_sp = ma_sp;
-		this.ten_sp = ten_sp;
-		this.soluong = soluong;
+	private String maSP, ten;
+	private int soLuong;
+	private float gia;
+	private String kichThuoc;
+	private String maLoaiHang;
+	private String urlHinh;
+	private List<NguyenLieu> danhSachNL;
+
+	public SanPham(String maSP, String ten, int soLuong, float gia, String kichThuoc, String maLoaiHang, String urlHinh) {
+		super();
+		this.maSP = maSP;
+		this.ten = ten;
+		this.soLuong = soLuong;
 		this.gia = gia;
-		this.kichthuoc = kichthuoc;
-		this.ma_loaihang = ma_loaihang;
-		this.url_hinh = url_hinh;
+		this.kichThuoc = kichThuoc;
+		this.maLoaiHang = maLoaiHang;
+		this.urlHinh = urlHinh;
 	}
 
-	public String getMa_sp() {
-		return ma_sp;
+	public SanPham() {
+		super();
 	}
 
-	public void setMa_sp(String ma_sp) {
-		this.ma_sp = ma_sp;
+	public String getMaSP() {
+		return maSP;
 	}
 
-	public String getTen_sp() {
-		return ten_sp;
+	public void setMaSP(String maSP) {
+		this.maSP = maSP;
 	}
 
-	public void setTen_sp(String ten_sp) {
-		this.ten_sp = ten_sp;
+	public String getTen() {
+		return ten;
 	}
 
-	public int getSoluong() {
-		return soluong;
+	public void setTen(String ten) {
+		this.ten = ten;
 	}
 
-	public void setSoluong(int soluong) {
-		this.soluong = soluong;
+	public int getSoLuong() {
+		return soLuong;
 	}
 
-	public double getGia() {
+	public void setSoLuong(int soLuong) {
+		this.soLuong = soLuong;
+	}
+
+	public float getGia() {
 		return gia;
 	}
 
-	public void setGia(double gia) {
+	public void setGia(float gia) {
 		this.gia = gia;
 	}
 
-	public String getKichthuoc() {
-		return kichthuoc;
+	public String getKichThuoc() {
+		return kichThuoc;
 	}
 
-	public void setKichthuoc(String kichthuoc) {
-		this.kichthuoc = kichthuoc;
+	public void setKichThuoc(String kichThuoc) {
+		this.kichThuoc = kichThuoc;
 	}
 
-	public String getMa_loaihang() {
-		return ma_loaihang;
+	public String getMaLoaiHang() {
+		return maLoaiHang;
 	}
 
-	public void setMa_loaihang(String ma_loaihang) {
-		this.ma_loaihang = ma_loaihang;
+	public void setMaLoaiHang(String maLoaiHang) {
+		this.maLoaiHang = maLoaiHang;
 	}
 
-	public String getUrl_hinh() {
-		return url_hinh;
+	public String getUrlHinh() {
+		return urlHinh;
 	}
 
-	public void setUrl_hinh(String url_hinh) {
-		this.url_hinh = url_hinh;
+	public void setUrlHinh(String urlHinh) {
+		this.urlHinh = urlHinh;
 	}
-	
-	
-	
-	
+
+	public List<NguyenLieu> getDanhSachNL() {
+		return danhSachNL;
+	}
+
+	public void setDanhSachNL(List<NguyenLieu> danhSachNL) {
+		this.danhSachNL = danhSachNL;
+	}
+
+	@Override
+	public String toString() {
+		return "SanPham [maSP=" + maSP + ", ten=" + ten + ", soLuong=" + soLuong + ", gia=" + gia + ", kichThuoc="
+				+ kichThuoc + ", maLoaiHang=" + maLoaiHang + ", urlHinh=" + urlHinh + ", danhSachNL=" + danhSachNL
+				+ "]";
+	}
 
 }
