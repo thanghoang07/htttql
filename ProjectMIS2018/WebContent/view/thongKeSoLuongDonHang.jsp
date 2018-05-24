@@ -52,9 +52,7 @@ canvas {
 	<%
 		ThongKeSoLuongDonHang tk = new ThongKeSoLuongDonHang();
 
-		List<String> listMaDonHang = new ArrayList<String>();
-
-		listMaDonHang = tk.layMAKH();
+		List<String> listMaDonHang = tk.layMAKH();
 
 		List<Integer> listSoLuongDonHang = new ArrayList<Integer>();
 

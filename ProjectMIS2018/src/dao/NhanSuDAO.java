@@ -10,6 +10,7 @@ import java.util.List;
 
 import model.LoaiNhanSu;
 import model.NhanSu;
+import model.TrangThaiDonHang;
 
 public class NhanSuDAO implements INhanSu {
 	private static ConnectionPool pool;
@@ -43,7 +44,7 @@ public class NhanSuDAO implements INhanSu {
 	}
 
 	@Override
-	public ArrayList<NhanSu> layDanhSachNhanSuTheoLoaiNhanSu(String ma_loainhansu)
+	public List<NhanSu> layDanhSachNhanSuTheoLoaiNhanSu(String ma_loainhansu)
 			throws ClassNotFoundException, SQLException {
 		pool = new ConnectionPool(url, user, password, driver, 10, 5);
 		Connection con = pool.getConnection();
@@ -111,9 +112,57 @@ public class NhanSuDAO implements INhanSu {
 	}
 
 	@Override
-	public NhanSu getNhanSu(String ma_ns) {
-		// TODO Auto-generated method stub
-		return null;
+	public NhanSu getNhanSu(String maNhanSu) throws ClassNotFoundException, SQLException {
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection con = pool.getConnection();
+
+		String sql = "select * from NHANSU where MA_NS='" + maNhanSu + "';";
+
+		PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+
+		String maNS = null, tenNS = null, diaChi = null, maLoaiNS = null;
+		boolean gioiTinh = false;
+		Date ngaySinh = null, ngayVaoLam = null;
+
+		while (rs.next()) {
+			maNS = rs.getString("MA_NS");
+			tenNS = rs.getString("TEN_NS");
+			maLoaiNS = rs.getString("MA_LOAINS");
+			ngaySinh = rs.getDate("NGAY_SINH");
+			ngayVaoLam = rs.getDate("NGAY_VAO_LAM");
+			gioiTinh = rs.getBoolean("GIOI_TINH");
+			diaChi = rs.getString("DIA_CHI");
+		}
+
+		con.close();
+
+		return new NhanSu(maNS, tenNS, ngaySinh, diaChi, gioiTinh, ngayVaoLam, getLoaiNhanSu(maLoaiNS));
+	}
+
+	@Override
+	public LoaiNhanSu getLoaiNhanSu(String maLoaiNS) throws ClassNotFoundException, SQLException {
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection con = pool.getConnection();
+
+		String sql = " select * from LOAINHANSU where MA_LOAINS='" + maLoaiNS + "';";
+
+		PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+
+		String ten = null;
+		float luong = 0;
+
+		while (rs.next()) {
+			ten = rs.getString("TENLOAINS");
+			luong = rs.getFloat("LUONG");
+		}
+
+		con.close();
+
+		return new LoaiNhanSu(maLoaiNS, ten, luong);
 	}
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {

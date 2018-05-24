@@ -11,6 +11,7 @@ import java.util.List;
 import model.ChiTietDonHang;
 import model.DonHang;
 import model.KhachHang;
+import model.LoaiHang;
 import model.LoaiNhanSu;
 import model.NhanSu;
 import model.SanPham;
@@ -34,15 +35,12 @@ public class DonHangDAO implements IDonHang {
 	public List<DonHang> layDanhSachDonHang() throws ClassNotFoundException, SQLException {
 		pool = new ConnectionPool(url, user, password, driver, 10, 5);
 		Connection con = pool.getConnection();
-
+		//
+		IKhachHang ikhachHang = new KhachHangDAO();
 		List<DonHang> listDonHang = new ArrayList<DonHang>();
-
-		String sql = "select * from DonHang dh inner join NHANSU ns on dh.MA_NS = ns.MA_NS"
-				+ " inner join LOAINHANSU lns on lns.MA_LOAINS = ns.MA_LOAINS"
-				+ " inner join KHACHHANG kh on kh.MA_KH = dh.MA_KH"
-				+ " inner join TRANGTHAIDH ttd on ttd.MA_TTDH = dh.MA_TTDH"
-				+ " inner join CHITIETDONHANG cdh on cdh.MA_DH=dh.MA_DH"
-				+ " inner join SANPHAM sp on sp.MA_SP = cdh.MA_SP;";
+		INhanSu iNhanSu = new NhanSuDAO();
+		//
+		String sql = "select * from DonHang;";
 
 		PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
 
@@ -57,41 +55,8 @@ public class DonHangDAO implements IDonHang {
 			Date ngayGiao = rs.getDate("NGAY_GIAO");
 			String maTTDH = rs.getString("MA_TTDH");
 			//
-			String tenNS = rs.getString("TEN_NS");
-			String maLNS = rs.getString("MA_LOAINS");
-			Date ngaySinh = rs.getDate("NGAY_SINH");
-			boolean gioiTinhNS = rs.getBoolean("GIOI_TINH");
-			String diaChi = rs.getString("DIA_CHI");
-			Date ngayVaoLam = rs.getDate("NGAY_VAO_LAM");
-			//
-			String tenKhachHang = rs.getString("TEN_KH");
-			boolean gioiTinhKH = rs.getBoolean("GIOI_TINH");
-			String diachi = rs.getString("DIA_CHI");
-			int sdt = rs.getInt("SDT");
-			//
-			String tenTTDH = rs.getString("TEN_TTDH");
-			//
-			String ten_loains = rs.getString("TENLOAINS");
-			float luong = rs.getFloat("LUONG");
-			//
-			String maSP = rs.getString("MA_SP");
-			int soLuong = rs.getInt("SO_LUONG");
-			//
-			String tenSP = rs.getString("TEN_SP");
-			int soluongSP = rs.getInt("SO_LUONG");
-			float giaSP = rs.getFloat("GIA");
-			String kichThuocSP = rs.getString("KICH_THUOC");
-			String maLH = rs.getString("MA_LH");
-			String urlHinh = rs.getString("URL_HINH");
-			//
-			listDonHang.add(new DonHang(maDonHang,
-					new NhanSu(maNhanSu, tenNS, ngaySinh, diachi, gioiTinhNS, ngayVaoLam,
-							new LoaiNhanSu(maLNS, ten_loains, luong)),
-					ngayNhan, ngayGiao, tongTien,
-					new ChiTietDonHang(maDonHang,
-							new SanPham(maSP, tenSP, soluongSP, giaSP, kichThuocSP, maLH, urlHinh), soLuong),
-					new KhachHang(maKhachHang, tenKhachHang, gioiTinhKH, diachi, sdt),
-					new TrangThaiDonHang(maTTDH, tenTTDH)));
+			listDonHang.add(new DonHang(maDonHang, iNhanSu.getNhanSu(maNhanSu), ngayNhan, ngayGiao, tongTien,
+					getChiTietDonHang(maDonHang), ikhachHang.getKhachHang(maKhachHang), getTrangThai(maTTDH)));
 		}
 
 		con.close();
@@ -111,11 +76,169 @@ public class DonHangDAO implements IDonHang {
 
 	}
 
+	@Override
+	public TrangThaiDonHang getTrangThai(String maTrangThai) throws ClassNotFoundException, SQLException {
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection con = pool.getConnection();
+
+		String sql = "select * from TRANGTHAIDH where  MA_TTDH = '" + maTrangThai + "';";
+
+		PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+
+		String ten = null;
+
+		while (rs.next()) {
+			ten = rs.getString("TEN_TTDH");
+		}
+
+		con.close();
+
+		return new TrangThaiDonHang(maTrangThai, ten);
+	}
+
+	@Override
+	public List<SanPham> listSanPhamTheoCTDH(String maDonHang) throws ClassNotFoundException, SQLException {
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection con = pool.getConnection();
+
+		String sql = "select * from CHITIETDONHANG ctdh inner join SANPHAM sp on ctdh.MA_SP = sp.MA_SP where ctdh.MA_DH = '"
+				+ maDonHang + "';";
+
+		PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+
+		List<SanPham> listSP = new ArrayList<SanPham>();
+
+		while (rs.next()) {
+			String maSP = rs.getString("MA_SP");
+			String tenSP = rs.getString("TEN_SP");
+			int soLuongSP = rs.getInt("SO_LUONG");
+			float gia = rs.getFloat("GIA");
+			String kichThuoc = rs.getString("KICH_THUOC");
+			String urlHinh = rs.getString("URL_HINH");
+			String maLoaiHang = rs.getString("MA_LH");
+			//
+			listSP.add(new SanPham(maSP, tenSP, soLuongSP, gia, kichThuoc, getLoaiHang(maLoaiHang), urlHinh));
+		}
+
+		return listSP;
+	}
+
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		DonHangDAO dhd = new DonHangDAO();
 		List<DonHang> list = dhd.layDanhSachDonHang();
 		for (DonHang dh : list) {
-			System.out.println(dh.getMaDH());
+			System.out.println(dh.toString());
 		}
+	}
+
+	@Override
+	public LoaiHang getLoaiHang(String maLoaiHang) throws ClassNotFoundException, SQLException {
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection con = pool.getConnection();
+
+		String sql = "select * from LOAIHANG where MA_LH='" + maLoaiHang + "';";
+
+		PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+
+		String ten = null;
+
+		while (rs.next()) {
+			ten = rs.getString("TEN_LH");
+		}
+
+		con.close();
+
+		return new LoaiHang(maLoaiHang, ten);
+
+	}
+
+	@Override
+	public ChiTietDonHang getChiTietDonHang(String maDonHang) throws ClassNotFoundException, SQLException {
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection con = pool.getConnection();
+
+		String sql = "select * from CHITIETDONHANG where MA_DH = '" + maDonHang + "';";
+
+		PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+
+		String maSanPham = null;
+		int soLuongSP = 0;
+
+		while (rs.next()) {
+			maSanPham = rs.getString("MA_SP");
+			soLuongSP = rs.getInt("SO_LUONG");
+		}
+
+		con.close();
+
+		return new ChiTietDonHang(maDonHang, listSanPhamTheoCTDH(maDonHang), soLuongSP);
+	}
+
+	@Override
+	public DonHang getDonHang(String maDonHang) throws ClassNotFoundException, SQLException {
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection con = pool.getConnection();
+		//
+		IKhachHang ikhachHang = new KhachHangDAO();
+		INhanSu iNhanSu = new NhanSuDAO();
+		//
+		String sql = "select * from DONHANG where MA_DH = '" + maDonHang + "';";
+		PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		//
+		String maNhanSu = null, maKhachHang = null, maTrangThai = null;
+		float tongTien = 0;
+		Date ngayNhan = null, ngayGiao = null;
+		//
+		while (rs.next()) {
+			maNhanSu = rs.getString("MA_NS");
+			maKhachHang = rs.getString("MA_KH");
+			tongTien = rs.getFloat("TONG_TIEN");
+			ngayNhan = rs.getDate("NGAY_NHAN");
+			ngayGiao = rs.getDate("NGAY_GIAO");
+			maTrangThai = rs.getString("MA_TTDH");
+		}
+
+		con.close();
+
+		return new DonHang(maDonHang, iNhanSu.getNhanSu(maNhanSu), ngayNhan, ngayGiao, tongTien,
+				getChiTietDonHang(maDonHang), ikhachHang.getKhachHang(maKhachHang), getTrangThai(maTrangThai));
+	}
+
+	@Override
+	public SanPham getSanPham(String maSanPham) throws ClassNotFoundException, SQLException {
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection con = pool.getConnection();
+
+		String sql = "select * from SANPHAM Where MA_SP='" + maSanPham + "';";
+
+		PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+		//
+		String maSP = null, tenSP = null;
+		int soLuongSP = 0;
+		float gia = 0;
+		String kichThuoc = null, urlHinh = null, maLoaiHang = null;
+
+		while (rs.next()) {
+			maSP = rs.getString("MA_SP");
+			tenSP = rs.getString("TEN_SP");
+			soLuongSP = rs.getInt("SO_LUONG");
+			gia = rs.getFloat("GIA");
+			kichThuoc = rs.getString("KICH_THUOC");
+			urlHinh = rs.getString("URL_HINH");
+			maLoaiHang = rs.getString("MA_LH");
+		}
+
+		return new SanPham(maSP, tenSP, soLuongSP, gia, kichThuoc, getLoaiHang(maLoaiHang), urlHinh);
 	}
 }

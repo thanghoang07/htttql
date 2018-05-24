@@ -1,3 +1,8 @@
+<%@page import="model.SanPham"%>
+<%@page import="java.awt.image.SampleModel"%>
+<%@page import="model.DonHang"%>
+<%@page import="dao.DonHangDAO"%>
+<%@page import="dao.IDonHang"%>
 <%@page import="model.KhachHang"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -13,7 +18,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Khách hàng</title>
+<title>Chi tiết đơn hàng</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -41,7 +46,7 @@
 				<!-- Page Heading -->
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Quản lý khách hàng</h1>
+						<h1 class="page-header">Chi Tiết Đơn Hàng</h1>
 						<ol class="breadcrumb">
 							<li><i class="fa fa-dashboard"></i> <a href="../index.jsp">Tổng
 									quan</a></li>
@@ -51,39 +56,56 @@
 				</div>
 				<!-- /.row -->
 				<div class="table-responsive">
+					<%
+						IDonHang iDonHang = new DonHangDAO();
+						int count = 0;
+						String maDonHang = request.getParameter("maDonHang");
+						DonHang donHang = iDonHang.getDonHang(maDonHang);
+					%>
+					<div>
+						<div class="col-lg-12">
+							<h3 class="page-header">
+								<%=donHang.getMaDH()%>
+							</h3>
+						</div>
+
+						<div class="col-lg-12">
+							<h4 class="page-header">Sản phẩm</h4>
+						</div>
+					</div>
+
 					<table class="table table-bordered table-hover">
 						<thead>
 							<tr>
 								<th>STT</th>
-								<th>Mã KH</th>
-								<th>Họ và tên</th>
-								<th>Giới tính</th>
-								<th>Địa chỉ</th>
-								<th>Số điện thoại</th>
+								<th>Tên</th>
+								<th>Giá</th>
+								<th>Kích thước</th>
+								<th></th>
 							</tr>
 						</thead>
+						<%
+							List<SanPham> listSP = donHang.getChiTietDonHang().getListSanPham();
+							for (int i = 0; i < listSP.size(); i++) {
+								count++;
+						%>
 						<tbody>
-							<%
-								IKhachHang khImpl = new KhachHangDAO();
-								int count = 0;
-								List<KhachHang> listKH = new ArrayList<KhachHang>();
-								listKH = khImpl.layDanhSachKhachHang();
-								for (KhachHang kh : listKH) {
-									count++;
-							%>
+
 							<tr>
 								<td><%=count%></td>
-								<td><%=kh.getMa_kh()%></td>
-								<td><%=kh.getTen_kh()%></td>
-								<td><%=kh.isGioitinh() ? "Nam" : "Nữ"%></td>
-								<td><%=kh.getDiachi()%></td>
-								<td><%="0" + kh.getSdt()%></td>
+								<td><%=listSP.get(i).getTen()%></td>
+								<td><%=listSP.get(i).getGia()%></td>
+								<td><%=listSP.get(i).getKichThuoc()%></td>
+								<td><a
+									href="chiTietSanPham.jsp?maSanPham=<%=listSP.get(i).getMaSP()%>">Chi
+										tiết</a></td>
 							</tr>
-							<%
-								}
-							%>
 						</tbody>
+						<%
+							}
+						%>
 					</table>
+
 				</div>
 				<!-- /.row -->
 			</div>

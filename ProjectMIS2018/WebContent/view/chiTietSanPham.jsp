@@ -1,3 +1,8 @@
+<%@page import="model.SanPham"%>
+<%@page import="java.awt.image.SampleModel"%>
+<%@page import="model.DonHang"%>
+<%@page import="dao.DonHangDAO"%>
+<%@page import="dao.IDonHang"%>
 <%@page import="model.KhachHang"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -13,7 +18,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Khách hàng</title>
+<title>Chi tiết sản phẩm</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -41,7 +46,7 @@
 				<!-- Page Heading -->
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Quản lý khách hàng</h1>
+						<h1 class="page-header">Chi Tiết Sản Phẩm</h1>
 						<ol class="breadcrumb">
 							<li><i class="fa fa-dashboard"></i> <a href="../index.jsp">Tổng
 									quan</a></li>
@@ -51,39 +56,44 @@
 				</div>
 				<!-- /.row -->
 				<div class="table-responsive">
+					<%
+						IDonHang iDonHang = new DonHangDAO();
+						int count = 0;
+						String maSanPham = request.getParameter("maSanPham");
+						SanPham sanPham = iDonHang.getSanPham(maSanPham);
+					%>
+					<div>
+						<div class="col-lg-12">
+							<h3 class="page-header">
+								<%=sanPham.getMaSP() + " - " + sanPham.getTen()%>
+							</h3>
+						</div>
+					</div>
+
 					<table class="table table-bordered table-hover">
 						<thead>
 							<tr>
 								<th>STT</th>
-								<th>Mã KH</th>
-								<th>Họ và tên</th>
-								<th>Giới tính</th>
-								<th>Địa chỉ</th>
-								<th>Số điện thoại</th>
+								<th>Mã sản phẩm</th>
+								<th>Tên</th>
+								<th>Giá</th>
+								<th>Kích thước</th>
 							</tr>
 						</thead>
+
 						<tbody>
-							<%
-								IKhachHang khImpl = new KhachHangDAO();
-								int count = 0;
-								List<KhachHang> listKH = new ArrayList<KhachHang>();
-								listKH = khImpl.layDanhSachKhachHang();
-								for (KhachHang kh : listKH) {
-									count++;
-							%>
+
 							<tr>
 								<td><%=count%></td>
-								<td><%=kh.getMa_kh()%></td>
-								<td><%=kh.getTen_kh()%></td>
-								<td><%=kh.isGioitinh() ? "Nam" : "Nữ"%></td>
-								<td><%=kh.getDiachi()%></td>
-								<td><%="0" + kh.getSdt()%></td>
+								<td><%=sanPham.getMaSP()%></td>
+								<td><%=sanPham.getTen()%></td>
+								<td><%=sanPham.getGia()%></td>
+								<td><%=sanPham.getKichThuoc()%></td>
 							</tr>
-							<%
-								}
-							%>
 						</tbody>
+
 					</table>
+
 				</div>
 				<!-- /.row -->
 			</div>

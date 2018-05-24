@@ -70,6 +70,7 @@
 								<th>Ngày nhận</th>
 								<th>Ngày giao</th>
 								<th>Trạng thái DH</th>
+								<th></th>
 								<!-- <th>Nhà sản xuất</th> -->
 							</tr>
 						</thead>
@@ -90,7 +91,9 @@
 								<td><%=dh.getNgayNhan()%></td>
 								<td><%=dh.getNgayGiao()%></td>
 								<td><%=dh.getTrangThai().getTen()%></td>
-								<!-- <td>Co.ltd Group 12 MIS </td> -->
+								<td><a
+									href="chiTietDonHang.jsp?maDonHang=<%=dh.getMaDH()%>">Chi
+										tiết</a></td>
 							</tr>
 							<%
 								}

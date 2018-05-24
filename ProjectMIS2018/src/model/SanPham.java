@@ -8,23 +8,19 @@ public class SanPham {
 	private int soLuong;
 	private float gia;
 	private String kichThuoc;
-	private String maLoaiHang;
+	private LoaiHang loaiHang;
 	private String urlHinh;
 	private List<NguyenLieu> danhSachNL;
 
-	public SanPham(String maSP, String ten, int soLuong, float gia, String kichThuoc, String maLoaiHang, String urlHinh) {
+	public SanPham(String maSP, String ten, int soLuong, float gia, String kichThuoc, LoaiHang loaiHang, String urlHinh) {
 		super();
 		this.maSP = maSP;
 		this.ten = ten;
 		this.soLuong = soLuong;
 		this.gia = gia;
 		this.kichThuoc = kichThuoc;
-		this.maLoaiHang = maLoaiHang;
+		this.loaiHang = loaiHang;
 		this.urlHinh = urlHinh;
-	}
-
-	public SanPham() {
-		super();
 	}
 
 	public String getMaSP() {
@@ -67,12 +63,12 @@ public class SanPham {
 		this.kichThuoc = kichThuoc;
 	}
 
-	public String getMaLoaiHang() {
-		return maLoaiHang;
+	public LoaiHang getLoaiHang() {
+		return loaiHang;
 	}
 
-	public void setMaLoaiHang(String maLoaiHang) {
-		this.maLoaiHang = maLoaiHang;
+	public void setLoaiHang(LoaiHang loaiHang) {
+		this.loaiHang = loaiHang;
 	}
 
 	public String getUrlHinh() {
@@ -94,8 +90,7 @@ public class SanPham {
 	@Override
 	public String toString() {
 		return "SanPham [maSP=" + maSP + ", ten=" + ten + ", soLuong=" + soLuong + ", gia=" + gia + ", kichThuoc="
-				+ kichThuoc + ", maLoaiHang=" + maLoaiHang + ", urlHinh=" + urlHinh + ", danhSachNL=" + danhSachNL
-				+ "]";
+				+ kichThuoc + ", loaiHang=" + loaiHang + ", urlHinh=" + urlHinh + ", danhSachNL=" + danhSachNL + "]";
 	}
 
 }

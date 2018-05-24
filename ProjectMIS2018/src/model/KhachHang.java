@@ -1,13 +1,13 @@
 package model;
 
 public class KhachHang {
-	
+
 	private String ma_kh;
 	private String ten_kh;
 	private boolean gioitinh;
 	private String diachi;
 	private int sdt;
-	
+
 	public KhachHang(String ma_kh, String ten_kh, boolean gioitinh, String diachi, int sdt) {
 		this.ma_kh = ma_kh;
 		this.ten_kh = ten_kh;
@@ -57,6 +57,12 @@ public class KhachHang {
 
 	public void setSdt(int sdt) {
 		this.sdt = sdt;
+	}
+
+	@Override
+	public String toString() {
+		return "KhachHang [ma_kh=" + ma_kh + ", ten_kh=" + ten_kh + ", gioitinh=" + gioitinh + ", diachi=" + diachi
+				+ ", sdt=" + sdt + "]";
 	}
 
 }

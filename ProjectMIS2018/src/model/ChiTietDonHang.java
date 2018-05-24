@@ -4,13 +4,13 @@ import java.util.List;
 
 public class ChiTietDonHang {
 	private String maDonHang;
-	private SanPham sanPham;
+	private List<SanPham> listSanPham;
 	private int soLuong;
 
-	public ChiTietDonHang(String maDonHang, SanPham sanPham, int soLuong) {
+	public ChiTietDonHang(String maDonHang, List<SanPham> listSanPham, int soLuong) {
 		super();
 		this.maDonHang = maDonHang;
-		this.sanPham = sanPham;
+		this.listSanPham = listSanPham;
 		this.soLuong = soLuong;
 	}
 
@@ -22,12 +22,12 @@ public class ChiTietDonHang {
 		this.maDonHang = maDonHang;
 	}
 
-	public SanPham getsanPham() {
-		return sanPham;
+	public List<SanPham> getListSanPham() {
+		return listSanPham;
 	}
 
-	public void setSanPham(SanPham listSanPham) {
-		this.sanPham = listSanPham;
+	public void setListSanPham(List<SanPham> listSanPham) {
+		this.listSanPham = listSanPham;
 	}
 
 	public int getSoLuong() {
@@ -40,7 +40,7 @@ public class ChiTietDonHang {
 
 	@Override
 	public String toString() {
-		return "ChiTietDonHang [maDonHang=" + maDonHang + ", listSanPham=" + sanPham + ", soLuong=" + soLuong + "]";
+		return "ChiTietDonHang [maDonHang=" + maDonHang + ", listSanPham=" + listSanPham + ", soLuong=" + soLuong + "]";
 	}
 
 }
