@@ -1,7 +1,7 @@
 package dao;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import model.KhachHang;
 
@@ -10,11 +10,15 @@ public interface IKhachHang {
 		public void themKhachHang(KhachHang kh) throws ClassNotFoundException, SQLException;
 		
 		// Lay danh sach khach hang.
-		public ArrayList<KhachHang> layDanhSachKhachHang() throws ClassNotFoundException, SQLException;
+		public List<KhachHang> layDanhSachKhachHang() throws ClassNotFoundException, SQLException;
 		
 		// Xoa khach hang dua vao ma_kh.
 		public void xoaKhachHang(String ma_kh);
 		
 		// Update khach hang.
 		public void updateKhachHang(KhachHang kh);
+		
+		//
+		public KhachHang getKhachHang(String maKhachHang)throws ClassNotFoundException, SQLException;
+		
 }

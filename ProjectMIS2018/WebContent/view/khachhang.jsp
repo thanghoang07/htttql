@@ -1,5 +1,6 @@
 <%@page import="model.KhachHang"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="dao.IKhachHang"%>
 <%@page import="dao.KhachHangDAO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -65,7 +66,7 @@
 							<%
 								IKhachHang khImpl = new KhachHangDAO();
 								int count = 0;
-								ArrayList<KhachHang> listKH = new ArrayList<KhachHang>();
+								List<KhachHang> listKH = new ArrayList<KhachHang>();
 								listKH = khImpl.layDanhSachKhachHang();
 								for (KhachHang kh : listKH) {
 									count++;

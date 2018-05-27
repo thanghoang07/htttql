@@ -1,7 +1,7 @@
 <%@page import="model.NhanSu"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-<%@page import="dao.NhanSuDao"%>
+<%@page import="dao.NhanSuDAO"%>
 <%@page import="dao.INhanSu"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
@@ -83,23 +83,22 @@
 						</thead>
 						<tbody>
 							<%
-								INhanSu ns = new NhanSuDao();
+								INhanSu ns = new NhanSuDAO();
 								int count = 0;
-								List<NhanSu> listNhanSu = new ArrayList<NhanSu>();
 								String ma_loainhansu = request.getParameter("ma_loains");
-								listNhanSu = ns.layDanhSachNhanSuTheoLoaiNhanSu(ma_loainhansu);
+								List<NhanSu> listNhanSu = ns.layDanhSachNhanSuTheoLoaiNhanSu(ma_loainhansu);
 								for (NhanSu ns1 : listNhanSu) {
 									count++;
 							%>
 							<tr>
 								<td><input type="checkbox" value=""></td>
 								<td><%=count%></td>
-								<td><%=ns1.getMa_ns()%></td>
-								<td><%=ns1.getTen_ns()%></td>
-								<td><%=ns1.getNgaysinh()%></td>
-								<td><%=ns1.isGioitinh() ? "Nam" : "Nữ"%></td>
-								<td><%=ns1.getDiachi()%></td>
-								<td><%=ns1.getNgayvaolam()%></td>
+								<td><%=ns1.getMaNS()%></td>
+								<td><%=ns1.getTenNS()%></td>
+								<td><%=ns1.getNgaySinh()%></td>
+								<td><%=ns1.getGioiTinh() ? "Nam" : "Nữ"%></td>
+								<td><%=ns1.getDiaChi()%></td>
+								<td><%=ns1.getNgayVaoLam()%></td>
 							</tr>
 							<%
 								}

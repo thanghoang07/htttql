@@ -3,84 +3,87 @@ package model;
 import java.sql.Date;
 
 public class NhanSu {
-	
-	private String ma_ns;
-	private String ten_ns;
-	private String ma_loains;
-	private Date ngaysinh;
-	private boolean gioitinh;
-	private String diachi;
-	private Date ngayvaolam;
-	
-	public NhanSu() {}
-	
-	public NhanSu(String ma_ns, String ten_ns, String ma_loains, Date ngaysinh, boolean gioitinh, String diachi,
-			Date ngayvaolam) {
-		this.ma_ns = ma_ns;
-		this.ten_ns = ten_ns;
-		this.ma_loains = ma_loains;
-		this.ngaysinh = ngaysinh;
-		this.gioitinh = gioitinh;
-		this.diachi = diachi;
-		this.ngayvaolam = ngayvaolam;
+
+	private String maNS;
+	private String tenNS;
+	private Date ngaySinh;
+	private String diaChi;
+	private Boolean gioiTinh;
+	private Date ngayVaoLam;
+	private LoaiNhanSu loai;
+
+	public NhanSu(String maNS, String tenNS, Date ngaySinh, String diaChi, Boolean gioiTinh, Date ngayVaoLam,
+			LoaiNhanSu loai) {
+		super();
+		this.maNS = maNS;
+		this.tenNS = tenNS;
+		this.ngaySinh = ngaySinh;
+		this.diaChi = diaChi;
+		this.gioiTinh = gioiTinh;
+		this.ngayVaoLam = ngayVaoLam;
+		this.loai = loai;
 	}
 
-	public String getMa_ns() {
-		return ma_ns;
+	public String getMaNS() {
+		return maNS;
 	}
 
-	public void setMa_ns(String ma_ns) {
-		this.ma_ns = ma_ns;
+	public void setMaNS(String maNS) {
+		this.maNS = maNS;
 	}
 
-	public String getTen_ns() {
-		return ten_ns;
+	public String getTenNS() {
+		return tenNS;
 	}
 
-	public void setTen_ns(String ten_ns) {
-		this.ten_ns = ten_ns;
+	public void setTenNS(String tenNS) {
+		this.tenNS = tenNS;
 	}
 
-	public String getMa_loains() {
-		return ma_loains;
+	public Date getNgaySinh() {
+		return ngaySinh;
 	}
 
-	public void setMa_loains(String ma_loains) {
-		this.ma_loains = ma_loains;
+	public void setNgaySinh(Date ngaySinh) {
+		this.ngaySinh = ngaySinh;
 	}
 
-	public Date getNgaysinh() {
-		return ngaysinh;
+	public String getDiaChi() {
+		return diaChi;
 	}
 
-	public void setNgaysinh(Date ngaysinh) {
-		this.ngaysinh = ngaysinh;
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
 	}
 
-	public boolean isGioitinh() {
-		return gioitinh;
+	public Boolean getGioiTinh() {
+		return gioiTinh;
 	}
 
-	public void setGioitinh(boolean gioitinh) {
-		this.gioitinh = gioitinh;
+	public void setGioiTinh(Boolean gioiTinh) {
+		this.gioiTinh = gioiTinh;
 	}
 
-	public String getDiachi() {
-		return diachi;
+	public Date getNgayVaoLam() {
+		return ngayVaoLam;
 	}
 
-	public void setDiachi(String diachi) {
-		this.diachi = diachi;
+	public void setNgayVaoLam(Date ngayVaoLam) {
+		this.ngayVaoLam = ngayVaoLam;
 	}
 
-	public Date getNgayvaolam() {
-		return ngayvaolam;
+	public LoaiNhanSu getLoai() {
+		return loai;
 	}
 
-	public void setNgayvaolam(Date ngayvaolam) {
-		this.ngayvaolam = ngayvaolam;
+	public void setLoai(LoaiNhanSu loai) {
+		this.loai = loai;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "NhanSu [maNS=" + maNS + ", tenNS=" + tenNS + ", ngaySinh=" + ngaySinh + ", diaChi=" + diaChi
+				+ ", gioiTinh=" + gioiTinh + ", ngayVaoLam=" + ngayVaoLam + ", loai=" + loai + "]";
+	}
 
 }

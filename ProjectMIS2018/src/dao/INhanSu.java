@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.LoaiNhanSu;
 import model.NhanSu;
 
 public interface INhanSu {
@@ -12,12 +13,16 @@ public interface INhanSu {
 	public void addNhanSu(NhanSu ns) throws ClassNotFoundException, SQLException;
 
 	// Hien thi danh sach nhan su theo loai nha su
-	public ArrayList<NhanSu> layDanhSachNhanSuTheoLoaiNhanSu(String ma_loainhansu)
+	public List<NhanSu> layDanhSachNhanSuTheoLoaiNhanSu(String ma_loainhansu)
 			throws ClassNotFoundException, SQLException;
 
 	// Hien thi danh sach nhan su theo loai nha su
 	public List<NhanSu> layDanhSachNhanSu() throws ClassNotFoundException, SQLException;
 
-	public NhanSu getNhanSu(String ma_ns);
+	//
+	public NhanSu getNhanSu(String maNhanSu) throws ClassNotFoundException, SQLException;
 
+	//
+	public LoaiNhanSu getLoaiNhanSu(String maLoaiNS) throws ClassNotFoundException, SQLException;
+	//
 }
