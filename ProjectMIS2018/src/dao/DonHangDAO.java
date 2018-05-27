@@ -26,9 +26,25 @@ public class DonHangDAO implements IDonHang {
 			url = "jdbc:sqlserver://localhost:1433;databaseName=QUANLYMOC;useUnicode=true;characterEncoding=UTF-8;";
 
 	@Override
-	public void themDonHang(DonHang kh) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-
+	public void themDonHang(DonHang dh) throws ClassNotFoundException, SQLException {
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection con = pool.getConnection();
+		//
+		String sql = " insert into DONHANG values (?,?,?,?,?,?,?);";
+		//
+		PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+		//
+		ps.setString(1, dh.getMaDH());
+		ps.setString(2, dh.getNhanVienKD().getMaNS());
+		ps.setString(3, dh.getKhachHang().getMa_kh());
+		ps.setFloat(4, dh.getTongTien());
+		ps.setDate(5, dh.getNgayNhan());
+		ps.setDate(6, dh.getNgayGiao());
+		ps.setString(7, dh.getTrangThai().getMaTrangThai());
+		//
+		ps.executeUpdate();
+		//
+		con.close();
 	}
 
 	@Override
@@ -127,14 +143,6 @@ public class DonHangDAO implements IDonHang {
 		return listSP;
 	}
 
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		DonHangDAO dhd = new DonHangDAO();
-		List<DonHang> list = dhd.layDanhSachDonHang();
-		for (DonHang dh : list) {
-			System.out.println(dh.toString());
-		}
-	}
-
 	@Override
 	public LoaiHang getLoaiHang(String maLoaiHang) throws ClassNotFoundException, SQLException {
 		pool = new ConnectionPool(url, user, password, driver, 10, 5);
@@ -155,7 +163,6 @@ public class DonHangDAO implements IDonHang {
 		con.close();
 
 		return new LoaiHang(maLoaiHang, ten);
-
 	}
 
 	@Override
@@ -240,5 +247,31 @@ public class DonHangDAO implements IDonHang {
 		}
 
 		return new SanPham(maSP, tenSP, soLuongSP, gia, kichThuoc, getLoaiHang(maLoaiHang), urlHinh);
+	}
+
+	@Override
+	public String getMaDonHang() throws ClassNotFoundException, SQLException {
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection con = pool.getConnection();
+
+		String sql = "select MA_DH from DONHANG;";
+
+		PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+		//
+		String maSP = null;
+		while (rs.next()) {
+			maSP = rs.getString("MA_DH");
+		}
+		return maSP;
+	}
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		DonHangDAO dhd = new DonHangDAO();
+		List<DonHang> list = dhd.layDanhSachDonHang();
+		for (DonHang dh : list) {
+			System.out.println(dh.toString());
+		}
 	}
 }

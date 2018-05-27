@@ -11,7 +11,7 @@ import model.TrangThaiDonHang;
 
 public interface IDonHang {
 	// Them khach hang vao database.
-	public void themDonHang(DonHang kh) throws ClassNotFoundException, SQLException;
+	public void themDonHang(DonHang dh) throws ClassNotFoundException, SQLException;
 
 	// Lay danh sach khach hang.
 	public List<DonHang> layDanhSachDonHang() throws ClassNotFoundException, SQLException;
@@ -39,5 +39,8 @@ public interface IDonHang {
 
 	// lya don hang
 	public SanPham getSanPham(String maSanPham) throws ClassNotFoundException, SQLException;
+
+	// lay maDonHang Trong ngay
+	public String getMaDonHang() throws ClassNotFoundException, SQLException;
 
 }
