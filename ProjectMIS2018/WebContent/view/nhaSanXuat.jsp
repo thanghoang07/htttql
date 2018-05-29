@@ -38,22 +38,22 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<br>
-						<h1 class="page-header">Quản lý khách hàng</h1>
+						<h1 class="page-header">Quản lý nhà cung cấp</h1>
 						<br>
 						<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="../index.jsp">Tổng
 									quan</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Khách
-								hàng</li>
+							<li class="breadcrumb-item active" aria-current="page">Nhà
+								cung cấp</li>
 						</ol>
 						</nav>
 					</div>
 				</div>
 				<div>
 					<center>
-						<a href="them_sp.jsp" class="btn btn-primary">Thêm khách hàng
-							mới</a>
+						<a href="themNhaCungCap.jsp" class="btn btn-primary">Thêm nhà
+							cung cấp mới</a>
 					</center>
 				</div>
 				<br>
