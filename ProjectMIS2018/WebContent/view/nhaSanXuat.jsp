@@ -1,19 +1,14 @@
-<%@page import="model.NhanSu"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="model.NhaCungCap"%>
 <%@page import="java.util.List"%>
-<%@page import="dao.NhanSuDAO"%>
-<%@page import="dao.INhanSu"%>
+<%@page import="dao.NhaCungCapDAO"%>
+<%@page import="dao.INhaCungCap"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-<title>Quản lý nhân sự nhân viên</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Nhà cung cấp</title>
 <!--  -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
@@ -37,28 +32,27 @@
 	<div id="wrapper">
 		<!-- Navigation -->
 		<jsp:include page="menu.jsp" />
-		<!-- the end MENU -->
 		<div id="page-wrapper">
 			<div class="container-fluid">
 				<!-- Page Heading -->
 				<div class="row">
 					<div class="col-lg-12">
 						<br>
-						<h1 class="page-header">Quản lý nhân sự</h1>
+						<h1 class="page-header">Quản lý khách hàng</h1>
 						<br>
 						<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="../index.jsp">Tổng
 									quan</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Nhân
-								sự</li>
+							<li class="breadcrumb-item active" aria-current="page">Khách
+								hàng</li>
 						</ol>
 						</nav>
 					</div>
 				</div>
 				<div>
 					<center>
-						<a href="themNhanSu.jsp" class="btn btn-primary">Thêm nhân sự
+						<a href="them_sp.jsp" class="btn btn-primary">Thêm khách hàng
 							mới</a>
 					</center>
 				</div>
@@ -69,30 +63,32 @@
 						<thead>
 							<tr>
 								<th>STT</th>
-								<th>Loại nhân sự</th>
 								<th>Tên</th>
-								<th>Ngày vào làm</th>
+								<th>Email</th>
+								<th>Địa chỉ</th>
+								<th>Số điện thoại</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							<%
-								INhanSu iNhanSu = new NhanSuDAO();
+								INhaCungCap iNhaCungCap = new NhaCungCapDAO();
 								int count = 0;
-								List<NhanSu> listNhanSu = iNhanSu.layDanhSachNhanSuTheoLoaiNhanSu(request.getParameter("maLoaiNS"));
-								for (NhanSu ns : listNhanSu) {
+								List<NhaCungCap> listNCC = iNhaCungCap.getListNhaCungCap();
+								for (NhaCungCap ncc : listNCC) {
 									count++;
 							%>
 							<tr>
 								<td><%=count%></td>
-								<td><%=ns.getLoai().getTen_loains()%></td>
-								<td><%=ns.getTenNS()%></td>
-								<td><%=ns.getNgayVaoLam()%></td>
+								<td><%=ncc.getTen()%></td>
+								<td><%=ncc.getEmail()%></td>
+								<td><%=ncc.getDiaChi()%></td>
+								<td><%="0" + ncc.getDienThoai()%></td>
 								<td>
 									<div class="btn-group" role="group" aria-label="Basic example">
 										<a class="btn btn-outline-info"
-											href="chiTietNhanSu.jsp?maNhanSu=<%=ns.getMaNS()%>"> <i
-											class="material-icons">insert_drive_file</i>
+											href="chiTietNhaCungCap.jsp?maNhaCungCap=<%=ncc.getMaNCC()%>">
+											<i class="material-icons">insert_drive_file</i>
 										</a> <a href="#" class="btn btn-outline-warning"> <i
 											class="material-icons">edit</i></a> <a href="#"
 											class="btn btn-outline-danger"> <i class="material-icons">delete_sweep</i></a>

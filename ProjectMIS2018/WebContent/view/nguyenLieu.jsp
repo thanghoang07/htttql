@@ -15,23 +15,24 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>Nguyên liệu</title>
-
-<!-- Bootstrap Core CSS -->
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="../css/sb-admin.css" rel="stylesheet">
-
-<!-- Custom Fonts -->
-<link href="../font-awesome-4.1.0/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<!--  -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+	integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+	crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 </head>
 <body>
 	<div id="wrapper">
@@ -44,54 +45,58 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<h1 class="page-header">Quản lý nguyên liệu</h1>
+						<br>
+						<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
-							<li><i class="fa fa-dashboard"></i> <a href="../index.jsp">Tổng
+							<li class="breadcrumb-item"><a href="../index.jsp">Tổng
 									quan</a></li>
-							<li class="active"><i class="fa fa-edit"></i> Nguyên liệu</li>
+							<li class="breadcrumb-item active" aria-current="page">Nguyên
+								liệu</li>
 						</ol>
+						</nav>
 					</div>
 				</div>
 				<div>
 					<center>
-						<h3>Hành động</h3>
-						<a href="them-sp.jsp"><input type=button value="Thêm"></a>
-						<input type=button value="Chỉnh sửa"> <input type=button
-							value="Xóa">
+						<a href="themNguyenLieu.jsp" class="btn btn-primary">Thêm
+							nguyên liệu mới</a>
 					</center>
 				</div>
 				<br>
 				<!-- /.row -->
 				<div class="table-responsive">
-					<table class="table table-bordered table-hover">
+					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th><input type="checkbox" value=""></th>
 								<th>STT</th>
 								<th>Mã nguyên liệu</th>
 								<th>Tên nguyên liệu</th>
 								<th>Số lượng</th>
 								<th>Loại nguyên liệu</th>
 								<th>Nhà cung cấp</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							<%
 								INguyenLieu ngl = new QuanLyNguyenLieuDAO();
-													int count = 0;
-													List<NguyenLieu> listNguyenLieu = new ArrayList<NguyenLieu>();
-													listNguyenLieu = ngl.getList();
-													for (NguyenLieu nl : listNguyenLieu) {
-														count++;
+								int count = 0;
+								List<NguyenLieu> listNguyenLieu = new ArrayList<NguyenLieu>();
+								listNguyenLieu = ngl.getList();
+								for (NguyenLieu nl : listNguyenLieu) {
+									count++;
 							%>
 							<tr>
-								<td><input type="checkbox" value=""></td>
 								<td><%=count%></td>
 								<td><%=nl.getMaNL()%></td>
 								<td><%=nl.getTen()%></td>
 								<td><%=nl.getSoLuong()%></td>
 								<td><%=nl.getLoai().getTen()%></td>
-								<td><%=nl.getNhaCungCap().getTen()%></td>
-								<!-- <td>Co.ltd Group 12 MIS </td> -->
+								<td><a
+									href="chiTietNhaCungCap.jsp?maNhaCungCap=<%=nl.getNhaCungCap().getMaNCC()%>"><%=nl.getNhaCungCap().getTen()%></a></td>
+								<td><a href="#" class="btn btn-outline-warning"> <i
+										class="material-icons">edit</i></a> <a href="#"
+									class="btn btn-outline-danger"> <i class="material-icons">delete_sweep</i></a></td>
 							</tr>
 							<%
 								}

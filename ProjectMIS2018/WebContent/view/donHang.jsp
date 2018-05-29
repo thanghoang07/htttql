@@ -31,7 +31,7 @@
 	integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
 	crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+	rel="stylesheet">
 </head>
 <body>
 	<div id="wrapper">
@@ -42,17 +42,23 @@
 				<!-- Page Heading -->
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Thống kê đơn hàng</h1>
+						<br>
+						<h1 class="page-header">Quản lý đơn hàng</h1>
+						<br>
+						<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
-							<li><i class="fa fa-dashboard"></i> <a href="../index.jsp">Tổng
+							<li class="breadcrumb-item"><a href="../index.jsp">Tổng
 									quan</a></li>
-							<li class="active"><i class="fa fa-table"></i> Đơn hàng</li>
+							<li class="breadcrumb-item active" aria-current="page">Đơn
+								hàng</li>
 						</ol>
+						</nav>
 					</div>
 				</div>
 				<div>
 					<center>
-						<a href="them_sp.jsp" class="btn btn-primary">Thêm đơn hàng mới</a>
+						<a href="them_sp.jsp" class="btn btn-primary">Thêm đơn hàng
+							mới</a>
 					</center>
 				</div>
 				<br>
@@ -92,12 +98,12 @@
 								<td><%=dh.getTrangThai().getTen()%></td>
 								<td>
 									<div class="btn-group" role="group" aria-label="Basic example">
-										<a class="btn btn-outline-info" href="chiTietDonHang.jsp?maDonHang=<%=dh.getMaDH()%>">
-											<i class="material-icons">insert_drive_file</i></a> 
-										<a href="#" class="btn btn-outline-warning">
-											<i class="material-icons">edit</i></a>
-										<a href="#" class="btn btn-outline-danger">
-											<i class="material-icons">delete_sweep</i></a>
+										<a class="btn btn-outline-info"
+											href="chiTietDonHang.jsp?maDonHang=<%=dh.getMaDH()%>"> <i
+											class="material-icons">insert_drive_file</i></a> <a href="#"
+											class="btn btn-outline-warning"> <i
+											class="material-icons">edit</i></a> <a href="#"
+											class="btn btn-outline-danger"> <i class="material-icons">delete_sweep</i></a>
 									</div>
 								</td>
 							</tr>

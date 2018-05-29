@@ -38,7 +38,9 @@ public interface IDonHang {
 	public DonHang getDonHang(String maDonHang) throws ClassNotFoundException, SQLException;
 
 	// lya don hang
-	public SanPham getSanPham(String maSanPham) throws ClassNotFoundException, SQLException;
+		public SanPham getSanPham(String maSanPham) throws ClassNotFoundException, SQLException;
+
+		public List<SanPham> getListSanPham(String maLoaiHang) throws ClassNotFoundException, SQLException;
 
 	// lay maDonHang Trong ngay
 	public String getMaDonHang() throws ClassNotFoundException, SQLException;

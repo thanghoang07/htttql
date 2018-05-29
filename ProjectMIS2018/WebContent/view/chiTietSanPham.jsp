@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="model.SanPham"%>
 <%@page import="java.awt.image.SampleModel"%>
 <%@page import="model.DonHang"%>
@@ -19,23 +20,24 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>Chi tiết sản phẩm</title>
-
-<!-- Bootstrap Core CSS -->
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="../css/sb-admin.css" rel="stylesheet">
-
-<!-- Custom Fonts -->
-<link href="../font-awesome-4.1.0/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<!--  -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+	integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+	crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 </head>
 <body>
 	<div id="wrapper">
@@ -48,9 +50,12 @@
 					<div class="col-lg-12">
 						<h1 class="page-header">Chi Tiết Sản Phẩm</h1>
 						<ol class="breadcrumb">
-							<li><i class="fa fa-dashboard"></i> <a href="../index.jsp">Tổng
+							<li class="breadcrumb-item"><a href="../index.jsp">Tổng
 									quan</a></li>
-							<li class="active"><i class="fa fa-edit"></i> Khách hàng</li>
+							<li class="breadcrumb-item" aria-current="page"><a
+								href="../quanlysanpham.jsp">Sản phẩm</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Chi
+								tiết sản phẩm</li>
 						</ol>
 					</div>
 				</div>
@@ -58,42 +63,26 @@
 				<div class="table-responsive">
 					<%
 						IDonHang iDonHang = new DonHangDAO();
-						int count = 0;
-						String maSanPham = request.getParameter("maSanPham");
-						SanPham sanPham = iDonHang.getSanPham(maSanPham);
+						SanPham sanPham = iDonHang.getSanPham(request.getParameter("maSanPham"));
 					%>
-					<div>
-						<div class="col-lg-12">
-							<h3 class="page-header">
-								<%=sanPham.getMaSP() + " - " + sanPham.getTen()%>
-							</h3>
+					<div class="card mb-3">
+						<div class="card-body">
+							<h5 class="card-title"><%=sanPham.getTen()%></h5>
+							<dl class="row">
+								<dt class="text-primary col-sm-4 font-weight-bold">Mã sản
+									phẩm:</dt>
+								<dd class="col-sm-8"><%=sanPham.getMaSP()%></dd>
+								<dt class="text-primary col-sm-4 font-weight-bold">Giá:</dt>
+								<dd class="col-sm-8"><%=new DecimalFormat("#,###,###").format(sanPham.getGia())%></dd>
+								<dt class="text-primary col-sm-4 font-weight-bold">Kích
+									thước:</dt>
+								<dd class="col-sm-8"><%=sanPham.getKichThuoc()%></dd>
+								<dt class="text-primary col-sm-4 font-weight-bold">Số
+									lượng:</dt>
+								<dd class="col-sm-8"><%=sanPham.getSoLuong()%></dd>
+							</dl>
 						</div>
 					</div>
-
-					<table class="table table-bordered table-hover">
-						<thead>
-							<tr>
-								<th>STT</th>
-								<th>Mã sản phẩm</th>
-								<th>Tên</th>
-								<th>Giá</th>
-								<th>Kích thước</th>
-							</tr>
-						</thead>
-
-						<tbody>
-
-							<tr>
-								<td><%=count%></td>
-								<td><%=sanPham.getMaSP()%></td>
-								<td><%=sanPham.getTen()%></td>
-								<td><%=sanPham.getGia()%></td>
-								<td><%=sanPham.getKichThuoc()%></td>
-							</tr>
-						</tbody>
-
-					</table>
-
 				</div>
 				<!-- /.row -->
 			</div>

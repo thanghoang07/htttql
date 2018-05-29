@@ -267,11 +267,34 @@ public class DonHangDAO implements IDonHang {
 		return maSP;
 	}
 
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		DonHangDAO dhd = new DonHangDAO();
-		List<DonHang> list = dhd.layDanhSachDonHang();
-		for (DonHang dh : list) {
-			System.out.println(dh.toString());
+	@Override
+	public List<SanPham> getListSanPham(String maLoaiHang) throws ClassNotFoundException, SQLException {
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection con = pool.getConnection();
+
+		String sql = "select * from SANPHAM Where MA_LH='" + maLoaiHang + "';";
+
+		PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+		//
+		List<SanPham> list = new ArrayList<SanPham>();
+		String maSP = null, tenSP = null;
+		int soLuongSP = 0;
+		float gia = 0;
+		String kichThuoc = null, urlHinh = null;
+		//
+		while (rs.next()) {
+			maSP = rs.getString("MA_SP");
+			tenSP = rs.getString("TEN_SP");
+			soLuongSP = rs.getInt("SO_LUONG");
+			gia = rs.getFloat("GIA");
+			kichThuoc = rs.getString("KICH_THUOC");
+			urlHinh = rs.getString("URL_HINH");
+			//
+			list.add(new SanPham(maSP, tenSP, soLuongSP, gia, kichThuoc, getLoaiHang(maLoaiHang), urlHinh));
 		}
+
+		return list;
 	}
 }

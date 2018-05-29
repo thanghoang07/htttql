@@ -49,15 +49,12 @@ public class NhanSuDAO implements INhanSu {
 		pool = new ConnectionPool(url, user, password, driver, 10, 5);
 		Connection con = pool.getConnection();
 
-		String sql = "SELECT * FROM NHANSU ns inner join LOAINHANSU lns on lns.MA_LOAINS = ns.MA_LOAINS where MA_LOAINS='"
-				+ ma_loainhansu + "'";
-
+		String sql = "select * from NHANSU where MA_LOAINS = '" + ma_loainhansu + "';";
+		//
 		ArrayList<NhanSu> listNhanSu = new ArrayList<NhanSu>();
-
+		//
 		PreparedStatement ps = con.prepareStatement(sql);
-
 		ResultSet rs = ps.executeQuery();
-
 		while (rs.next()) {
 			String ma_ns = rs.getString("MA_NS");
 			String ten_ns = rs.getString("TEN_NS");
@@ -66,15 +63,10 @@ public class NhanSuDAO implements INhanSu {
 			boolean gioiTinh = rs.getBoolean("GIOI_TINH");
 			String diachi = rs.getString("DIA_CHI");
 			Date ngayvaolam = rs.getDate("NGAY_VAO_LAM");
-			String tenLoaiNS = rs.getString("TENLOAINS");
-			float luong = rs.getFloat("LUONG");
 			//
-			listNhanSu.add(new NhanSu(ma_ns, ten_ns, ngaysinh, diachi, gioiTinh, ngayvaolam,
-					new LoaiNhanSu(ma_loains, tenLoaiNS, luong)));
+			listNhanSu.add(new NhanSu(ma_ns, ten_ns, ngaysinh, diachi, gioiTinh, ngayvaolam, getLoaiNhanSu(ma_loains)));
 		}
-
 		con.close();
-
 		return listNhanSu;
 	}
 
@@ -83,7 +75,7 @@ public class NhanSuDAO implements INhanSu {
 		pool = new ConnectionPool(url, user, password, driver, 10, 5);
 		Connection con = pool.getConnection();
 
-		String sql = "SELECT * FROM NHANSU ns inner join LOAINHANSU lns on lns.MA_LOAINS = ns.MA_LOAINS;";
+		String sql = "SELECT * FROM NHANSU;";
 
 		ArrayList<NhanSu> listNhanSu = new ArrayList<NhanSu>();
 
@@ -99,11 +91,8 @@ public class NhanSuDAO implements INhanSu {
 			boolean gioiTinh = rs.getBoolean("GIOI_TINH");
 			String diachi = rs.getString("DIA_CHI");
 			Date ngayvaolam = rs.getDate("NGAY_VAO_LAM");
-			String tenLoaiNS = rs.getString("TENLOAINS");
-			float luong = rs.getFloat("LUONG");
 			//
-			listNhanSu.add(new NhanSu(ma_ns, ten_ns, ngaysinh, diachi, gioiTinh, ngayvaolam,
-					new LoaiNhanSu(ma_loains, tenLoaiNS, luong)));
+			listNhanSu.add(new NhanSu(ma_ns, ten_ns, ngaysinh, diachi, gioiTinh, ngayvaolam, getLoaiNhanSu(ma_loains)));
 		}
 
 		con.close();
