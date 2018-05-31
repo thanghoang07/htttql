@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +68,24 @@ public class NhaCungCapDAO implements INhaCungCap {
 		}
 
 		return new NhaCungCap(maNhaCungCap, tenNCC, sdt, diaChi, email);
+	}
+
+	@Override
+	public void addNhaCungCap(NhaCungCap nhaCungCap) {
+		try {
+			pool = new ConnectionPool(url, user, password, driver, 10, 5);
+			Connection conn = pool.getConnection();
+			//
+			String sql = "insert into NHACUNGCAP values ('" + nhaCungCap.getMaNCC() + "','" + nhaCungCap.getTen()
+					+ "','" + nhaCungCap.getDiaChi() + "','" + nhaCungCap.getEmail() + "'," + nhaCungCap.getDienThoai()
+					+ ");";
+			System.out.println("SQL:" + sql);
+			Statement stmt = null;
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -44,7 +44,7 @@ public class NhanSuDAO implements INhanSu {
 	}
 
 	@Override
-	public List<NhanSu> layDanhSachNhanSuTheoLoaiNhanSu(String ma_loainhansu)
+	public List<NhanSu> getListNhanSuTheoLoaiNhanSu(String ma_loainhansu)
 			throws ClassNotFoundException, SQLException {
 		pool = new ConnectionPool(url, user, password, driver, 10, 5);
 		Connection con = pool.getConnection();
@@ -71,7 +71,7 @@ public class NhanSuDAO implements INhanSu {
 	}
 
 	@Override
-	public List<NhanSu> layDanhSachNhanSu() throws ClassNotFoundException, SQLException {
+	public List<NhanSu> getListNhanSu() throws ClassNotFoundException, SQLException {
 		pool = new ConnectionPool(url, user, password, driver, 10, 5);
 		Connection con = pool.getConnection();
 
@@ -156,7 +156,7 @@ public class NhanSuDAO implements INhanSu {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		NhanSuDAO nsd = new NhanSuDAO();
-		List<NhanSu> list = nsd.layDanhSachNhanSu();
+		List<NhanSu> list = nsd.getListNhanSu();
 		for (NhanSu ns : list) {
 			System.out.println(ns.toString());
 		}

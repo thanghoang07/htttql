@@ -57,9 +57,53 @@
 				</div>
 				<div>
 					<center>
-						<a href="them_sp.jsp" class="btn btn-primary">Thêm khách hàng
-							mới</a>
+						<button type="button" class="btn btn-info btn-secondary"
+							data-toggle="collapse" data-target="#demo3">
+							<span class="glyphicon glyphicon-plus">&nbsp;Thêm nhà
+								khách hàng mới</span>
+						</button>
 					</center>
+					<div class="col-sm-2"></div>
+					<div id="demo3" class="collapse col-sm-8">
+						<form action="<%=request.getContextPath()%>/themKHController"
+							method="post">
+							<div class="col-md-12">
+								<h3>Thêm nhà khách hàng mới</h3>
+							</div>
+							<div class="col-md-4"></div>
+							<div class="col-md-8">
+								<div class="form-group">
+									<label for="exampleInputPassword1">Tên</label> <input
+										type="text" class="form-control" id="tenKH" name="tenKH"
+										placeholder="Tên nhà cung cấp">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Địa chỉ</label> <input
+										type="text" class="form-control" id="diaChiNCC"
+										name="diaChiKH" placeholder="Địa chỉ khách hàng">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Giới tính</label><select
+										class="form-control" id="exampleSelect2" name="gioiTinh">
+										<option value="true">Nam</option>
+										<option value="false">Nữ</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Số điện thoại</label> <input
+										type="text" class="form-control" id="soDienThoai"
+										name="soDienThoai" placeholder="Số điện thoại">
+								</div>
+								<center>
+									<input type="submit" class="btn btn-primary" value="Tạo">
+								</center>
+							</div>
+
+							<div class="col-md-4"></div>
+
+						</form>
+					</div>
+					<div class="col-sm-2"></div>
 				</div>
 				<br>
 				<!-- /.row -->
@@ -79,7 +123,7 @@
 							<%
 								IKhachHang khImpl = new KhachHangDAO();
 								int count = 0;
-								List<KhachHang> listKH = khImpl.layDanhSachKhachHang();
+								List<KhachHang> listKH = khImpl.getListKhachHang();
 								for (KhachHang kh : listKH) {
 									count++;
 							%>

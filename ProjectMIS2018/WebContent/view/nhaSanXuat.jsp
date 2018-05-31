@@ -52,9 +52,57 @@
 				</div>
 				<div>
 					<center>
-						<a href="them_sp.jsp" class="btn btn-primary">Thêm khách hàng
-							mới</a>
+						<button type="button" class="btn btn-info btn-secondary"
+							data-toggle="collapse" data-target="#demo3">
+							<span class="glyphicon glyphicon-plus">&nbsp;Thêm nhà cung
+								cấp mới</span>
+						</button>
 					</center>
+					<div class="col-sm-2"></div>
+					<div id="demo3" class="collapse col-sm-8">
+						<form action="<%=request.getContextPath()%>/themNCCController"
+							method="post">
+							<div class="col-md-12">
+								<h3>Thêm nhà cung cấp mới</h3>
+							</div>
+							<div class="col-md-4"></div>
+
+							<div class="col-md-8">
+								<div class="form-group">
+									<label for="exampleInputEmail1">Mã</label> <input type="text"
+										class="form-control" id="maNhaCungCap" name="maNhaCungCap"
+										placeholder="Mã nhà cung cấp">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Tên</label> <input
+										type="text" class="form-control" id="tenNCC" name="tenNCC"
+										placeholder="Tên nhà cung cấp">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Địa chỉ</label> <input
+										type="text" class="form-control" id="diaChiNCC"
+										name="diaChiNCC" placeholder="Địa chỉ nhà cung cấp">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Email</label> <input
+										type="email" class="form-control" id="emailNCC"
+										name="emailNCC" placeholder="Email nhà cung cấp">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Số điện thoại</label> <input
+										type="text" class="form-control" id="soDienThoai"
+										name="soDienThoai" placeholder="Số điện thoại">
+								</div>
+								<center>
+									<input type="submit" class="btn btn-primary" value="Tạo">
+								</center>
+							</div>
+
+							<div class="col-md-4"></div>
+
+						</form>
+					</div>
+					<div class="col-sm-2"></div>
 				</div>
 				<br>
 				<!-- /.row -->

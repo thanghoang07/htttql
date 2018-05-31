@@ -1,17 +1,15 @@
 package model;
 
-import java.util.List;
+import java.util.HashMap;
 
 public class ChiTietDonHang {
 	private String maDonHang;
-	private List<SanPham> listSanPham;
-	private int soLuong;
+	private HashMap<SanPham, Integer> sanPhamSoLuong;
 
-	public ChiTietDonHang(String maDonHang, List<SanPham> listSanPham, int soLuong) {
+	public ChiTietDonHang(String maDonHang, HashMap<SanPham, Integer> sanPhamSoLuong) {
 		super();
 		this.maDonHang = maDonHang;
-		this.listSanPham = listSanPham;
-		this.soLuong = soLuong;
+		this.sanPhamSoLuong = sanPhamSoLuong;
 	}
 
 	public String getMaDonHang() {
@@ -22,25 +20,17 @@ public class ChiTietDonHang {
 		this.maDonHang = maDonHang;
 	}
 
-	public List<SanPham> getListSanPham() {
-		return listSanPham;
+	public HashMap<SanPham, Integer> getSanPhamSoLuong() {
+		return sanPhamSoLuong;
 	}
 
-	public void setListSanPham(List<SanPham> listSanPham) {
-		this.listSanPham = listSanPham;
-	}
-
-	public int getSoLuong() {
-		return soLuong;
-	}
-
-	public void setSoLuong(int soLuong) {
-		this.soLuong = soLuong;
+	public void setSanPhamSoLuong(HashMap<SanPham, Integer> sanPhamSoLuong) {
+		this.sanPhamSoLuong = sanPhamSoLuong;
 	}
 
 	@Override
 	public String toString() {
-		return "ChiTietDonHang [maDonHang=" + maDonHang + ", listSanPham=" + listSanPham + ", soLuong=" + soLuong + "]";
+		return "ChiTietDonHang [maDonHang=" + maDonHang + ", sanPhamSoLuong=" + sanPhamSoLuong + "]";
 	}
 
 }

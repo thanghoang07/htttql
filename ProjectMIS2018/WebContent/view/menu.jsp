@@ -1,6 +1,6 @@
+<%@page import="dao.DonHangDAO"%>
+<%@page import="dao.IDonHang"%>
 <%@page import="model.LoaiHang"%>
-<%@page import="dao.QuanLyLoaiHangDAO"%>
-<%@page import="dao.IQuanLyLoaiHang"%>
 <%@page import="model.LoaiNhanSu"%>
 <%@page import="model.LoaiHang"%>
 <%@page import="java.util.ArrayList"%>
@@ -39,22 +39,22 @@
 			<li class="nav-item active"><a class="nav-link" href="#">Thống
 					kê chi tiết</a></li>
 			<li class="nav-item active"><a class="nav-link"
-				href="donHang.jsp">Đơn hàng</a></li>
+				href="<%=request.getContextPath()%>/view/donHang.jsp">Đơn hàng</a></li>
 			<li class="nav-item active"><a class="nav-link"
-				href="khachhang.jsp">Khách hàng</a></li>
+				href="<%=request.getContextPath()%>/view/khachhang.jsp">Khách
+					hàng</a></li>
 			<li class="nav-item active dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="false">Sản phẩm</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<%
-						IQuanLyLoaiHang qllh = new QuanLyLoaiHangDAO();
-						List<LoaiHang> listLoaiHang = new ArrayList<LoaiHang>();
-						listLoaiHang = qllh.getList();
+						IDonHang iDH = new DonHangDAO();
+						List<LoaiHang> listLoaiHang = iDH.getListLoaiHang();
 						for (LoaiHang lh : listLoaiHang) {
 					%>
 					<a class="dropdown-item"
-						href="quanlysanpham.jsp?maLoaiHang=<%=lh.getMa_loaihang()%>"><%=lh.getTen_loaihang()%></a>
+						href="<%=request.getContextPath()%>/view/quanlysanpham.jsp?maLoaiHang=<%=lh.getMa_loaihang()%>"><%=lh.getTen_loaihang()%></a>
 					<div class="dropdown-divider"></div>
 					<%
 						}
@@ -72,14 +72,15 @@
 						for (LoaiNhanSu lns : listLoaiNhanSu) {
 					%>
 					<a class="dropdown-item"
-						href="quanlynhansu.jsp?maLoaiNS=<%=lns.getMa_loains()%>"><%=lns.getTen_loains()%></a>
+						href="<%=request.getContextPath()%>/view/quanlynhansu.jsp?maLoaiNS=<%=lns.getMa_loains()%>"><%=lns.getTen_loains()%></a>
 					<div class="dropdown-divider"></div>
 					<%
 						}
 					%>
 				</div></li>
 			<li class="nav-item active"><a class="nav-link"
-				href="nguyenLieu.jsp">Nguyên liệu</a>
+				href="<%=request.getContextPath()%>/view/nguyenLieu.jsp">Nguyên
+					liệu</a>
 			<li class="nav-item active"><a class="nav-link" href="#">Chấm
 					công</a></li>
 		</ul>
