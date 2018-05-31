@@ -18,7 +18,7 @@ public class KhachHangDAO implements IKhachHang {
 			url = "jdbc:sqlserver://localhost:1433;databaseName=QUANLYMOC;useUnicode=true;characterEncoding=UTF-8;";
 
 	@Override
-	public void themKhachHang(KhachHang kh) throws ClassNotFoundException, SQLException {
+	public void addKhachHang(KhachHang kh) throws ClassNotFoundException, SQLException {
 		pool = new ConnectionPool(url, user, password, driver, 10, 5);
 		Connection con = pool.getConnection();
 
@@ -39,7 +39,7 @@ public class KhachHangDAO implements IKhachHang {
 	}
 
 	@Override
-	public List<KhachHang> layDanhSachKhachHang() throws ClassNotFoundException, SQLException {
+	public List<KhachHang> getListKhachHang() throws ClassNotFoundException, SQLException {
 		pool = new ConnectionPool(url, user, password, driver, 10, 5);
 		Connection con = pool.getConnection();
 
@@ -68,7 +68,7 @@ public class KhachHangDAO implements IKhachHang {
 	}
 
 	@Override
-	public void xoaKhachHang(String ma_kh) {
+	public void hidenKhachHang(String ma_kh) {
 		// TODO Auto-generated method stub
 
 	}
@@ -113,6 +113,25 @@ public class KhachHangDAO implements IKhachHang {
 		IKhachHang ikh = new KhachHangDAO();
 		KhachHang kh = ikh.getKhachHang("01");
 		System.out.println(kh.toString());
+	}
+
+	@Override
+	public String getMaKhachHang() throws ClassNotFoundException, SQLException {
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection con = pool.getConnection();
+		//
+		String sql = "Select MA_KH from KHACHHANG;";
+		//
+		PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		//
+		String ma_kh = null;
+		//
+		while (rs.next()) {
+			ma_kh = rs.getString("MA_KH");
+		}
+		con.close();
+		return ma_kh;
 	}
 
 }

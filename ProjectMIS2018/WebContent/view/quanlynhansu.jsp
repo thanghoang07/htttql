@@ -78,10 +78,10 @@
 						<tbody>
 							<%
 								INhanSu iNhanSu = new NhanSuDAO();
-								int count = 0;
-								List<NhanSu> listNhanSu = iNhanSu.layDanhSachNhanSuTheoLoaiNhanSu(request.getParameter("maLoaiNS"));
-								for (NhanSu ns : listNhanSu) {
-									count++;
+													int count = 0;
+													List<NhanSu> listNhanSu = iNhanSu.getListNhanSuTheoLoaiNhanSu(request.getParameter("maLoaiNS"));
+													for (NhanSu ns : listNhanSu) {
+														count++;
 							%>
 							<tr>
 								<td><%=count%></td>

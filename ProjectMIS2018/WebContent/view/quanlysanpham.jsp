@@ -1,3 +1,4 @@
+<%@page import="model.LoaiHang"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="dao.IDonHang"%>
 <%@page import="model.SanPham"%>
@@ -56,12 +57,65 @@
 					</div>
 				</div>
 				<div>
-					<center>
-						<div class="btn-group" role="group" aria-label="Basic example">
-							<a href="them_sp.jsp" class="btn btn-primary">Thêm sản phẩm
-								mới</a>
-						</div>
-					</center>
+					<button type="button" class="btn btn-info btn-secondary"
+						data-toggle="collapse" data-target="#demo3">
+						<span class="glyphicon glyphicon-plus">&nbsp;Thêm sản phẩm
+							mới</span>
+					</button>
+					<div id="demo3" class="collapse">
+						<form action="<%=request.getContextPath()%>/themSPController"
+							method="post">
+							<div class="col-md-12">
+								<h3>Thêm sản phẩm mới</h3>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Tên</label> <input
+									type="text" class="form-control" id="tenSP" name="tenSP"
+									placeholder="Tên sản phẩm ">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Số lượng</label> <input
+									type="text" class="form-control" id="soLuong" name="soLuong"
+									placeholder="Số Lượng">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Giá</label> <input
+									type="text" class="form-control" id="gia" name="gia"
+									placeholder="Giá">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Kích thước</label> <input
+									type="text" class="form-control" id="kichThuoc"
+									name="kichThuoc" placeholder="Kích thước">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Loại hàng</label>
+								<%
+									IDonHang iDonHang = new DonHangDAO();
+									List<SanPham> listSanPham = iDonHang.getListSanPham(request.getParameter("maLoaiHang"));
+									List<LoaiHang> listLNL = iDonHang.getListLoaiHang();
+								%>
+								<select class="form-control" id="exampleSelect2"
+									name="maLoaiHang">
+									<%
+										for (int k = 0; k < listLNL.size(); k++) {
+											String ma = listLNL.get(k).getMa_loaihang();
+											String name = listLNL.get(k).getTen_loaihang();
+									%>
+									<option value="<%=ma%>"><%=name%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Hình ảnh</label> <input
+									type="text" class="form-control" id="hinh" name="hinh"
+									placeholder="Đường dẫn hình">
+							</div>
+							<input type="submit" class="btn btn-primary" value="Tạo">
+						</form>
+					</div>
 				</div>
 				<br>
 				<!-- /.row -->
@@ -80,9 +134,6 @@
 						</thead>
 						<tbody>
 							<%
-								IDonHang spimpl = new DonHangDAO();
-								List<SanPham> listSanPham = new ArrayList<SanPham>();
-								listSanPham = spimpl.getListSanPham(request.getParameter("maLoaiHang"));
 								for (SanPham sp : listSanPham) {
 							%>
 							<tr>
@@ -91,7 +142,7 @@
 								<td><%=sp.getSoLuong()%></td>
 								<td><%=new DecimalFormat("#,###,###").format(sp.getGia())%></td>
 								<td><%=sp.getKichThuoc()%></td>
-								<td><%=sp.getLoaiHang().getMa_loaihang()%></td>
+								<td><%=sp.getLoaiHang().getTen_loaihang()%></td>
 								<td>
 									<div class="btn-group" role="group" aria-label="Basic example">
 										<a class="btn btn-outline-info"

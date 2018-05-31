@@ -1,3 +1,5 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map.Entry"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="model.SanPham"%>
 <%@page import="java.awt.image.SampleModel"%>
@@ -35,22 +37,6 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
 	integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
 	crossorigin="anonymous"></script>
-<!-- Bootstrap Core CSS -->
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="../css/sb-admin.css" rel="stylesheet">
-
-<!-- Custom Fonts -->
-<link href="../font-awesome-4.1.0/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 <body>
 	<div id="wrapper">
@@ -60,14 +46,19 @@
 			<div class="container-fluid">
 				<!-- Page Heading -->
 				<div class="row">
-					<div class="col-lg-12">
-						<h1 class="page-header">Chi Tiết Đơn Hàng</h1>
-						<ol class="breadcrumb">
-							<li><i class="fa fa-dashboard"></i> <a href="../index.jsp">Tổng
-									quan</a></li>
-							<li class="active"><i class="fa fa-edit"></i> Khách hàng</li>
-						</ol>
-					</div>
+					<br>
+					<h1 class="page-header">Chi tiết đơn hàng</h1>
+					<br>
+					<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="../index.jsp">Tổng
+								quan</a></li>
+						<li class="breadcrumb-item" aria-current="page"><a
+							href="../donHang.jsp">Đơn hàng</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Chi
+							tiết đơn hàng</li>
+					</ol>
+					</nav>
 				</div>
 				<!-- /.row -->
 				<div class="table-responsive">
@@ -75,6 +66,7 @@
 						IDonHang iDonHang = new DonHangDAO();
 						int count = 0;
 						DonHang donHang = iDonHang.getDonHang(request.getParameter("maDonHang"));
+						HashMap<SanPham, Integer> ctdh = donHang.getChiTietDonHang().getSanPhamSoLuong();
 					%>
 					<div>
 						<div class="col-lg-12">
@@ -82,12 +74,14 @@
 								<%=donHang.getMaDH()%>
 							</h3>
 						</div>
-
+						<br>
 						<div class="col-lg-12">
-							<h4 class="page-header">Sản phẩm</h4>
+							<h4 class="page-header">
+								Tổng tiền:
+								<%=new DecimalFormat("#,###,###").format(donHang.getTongTien())%></h4>
 						</div>
 					</div>
-
+					<br>
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -99,19 +93,17 @@
 							</tr>
 						</thead>
 						<%
-							List<SanPham> listSP = donHang.getChiTietDonHang().getListSanPham();
-							for (int i = 0; i < listSP.size(); i++) {
+							for (Entry<SanPham, Integer> entry : ctdh.entrySet()) {
 								count++;
 						%>
 						<tbody>
-
 							<tr>
 								<td><%=count%></td>
-								<td><%=listSP.get(i).getTen()%></td>
-								<td><%=new DecimalFormat("#,###,###").format(listSP.get(i).getGia())%></td>
-								<td><%=listSP.get(i).getKichThuoc()%></td>
+								<td><%=entry.getKey().getTen()%></td>
+								<td><%=new DecimalFormat("#,###,###").format(entry.getKey().getGia())%></td>
+								<td><%=entry.getKey().getKichThuoc()%></td>
 								<td><a class="btn btn-outline-info"
-									href="chiTietSanPham.jsp?maSanPham=<%=listSP.get(i).getMaSP()%>">Chi
+									href="chiTietSanPham.jsp?maSanPham=<%=entry.getKey().getMaSP()%>">Chi
 										tiết</a></td>
 							</tr>
 						</tbody>
@@ -119,7 +111,6 @@
 							}
 						%>
 					</table>
-
 				</div>
 				<!-- /.row -->
 			</div>

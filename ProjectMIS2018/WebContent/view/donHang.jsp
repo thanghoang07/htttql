@@ -1,3 +1,11 @@
+<%@page import="model.SanPham"%>
+<%@page import="dao.ISanPham"%>
+<%@page import="model.KhachHang"%>
+<%@page import="dao.KhachHangDAO"%>
+<%@page import="dao.IKhachHang"%>
+<%@page import="model.NhanSu"%>
+<%@page import="dao.NhanSuDAO"%>
+<%@page import="dao.INhanSu"%>
 <%@page import="model.DonHang"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.DonHangDAO"%>
@@ -56,10 +64,159 @@
 					</div>
 				</div>
 				<div>
-					<center>
-						<a href="them_sp.jsp" class="btn btn-primary">Thêm đơn hàng
-							mới</a>
-					</center>
+					<button type="button" class="btn btn-info btn-secondary"
+						data-toggle="collapse" data-target="#demo3">
+						<span class="glyphicon glyphicon-plus">&nbsp;Thêm đơn hàng
+							mới</span>
+					</button>
+					<div id="demo3" class="collapse">
+						<form action="<%=request.getContextPath()%>/themDHController"
+							method="post">
+							<div class="col-md-12">
+								<h3>Thêm đơn hàng mới</h3>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Nhân viên kinh doanh</label>
+								<%
+									INhanSu iNhanSu = new NhanSuDAO();
+									IKhachHang iKhachHang = new KhachHangDAO();
+									IDonHang iDonHang = new DonHangDAO();
+									List<NhanSu> listNhanSu = iNhanSu.getListNhanSuTheoLoaiNhanSu("KD");
+									List<KhachHang> listKhachHang = iKhachHang.getListKhachHang();
+									List<SanPham> listSanPham = iDonHang.getListSanPham();
+								%>
+								<select class="form-control" id="exampleSelect2" name="maNS">
+									<%
+										for (int k = 0; k < listNhanSu.size(); k++) {
+											String ma = listNhanSu.get(k).getMaNS();
+											String name = listNhanSu.get(k).getTenNS();
+									%>
+									<option value="<%=ma%>"><%=name%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Khách hàng</label> <select
+									class="form-control" id="exampleSelect2" name="maKH">
+									<%
+										for (int k = 0; k < listKhachHang.size(); k++) {
+											String ma = listKhachHang.get(k).getMa_kh();
+											String name = listKhachHang.get(k).getTen_kh();
+									%>
+									<option value="<%=ma%>"><%=name%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Ngày nhận</label> <input
+									type="date" class="form-control" id="soLuong" name="ngayNhan">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Ngày giao</label><input
+									type="date" class="form-control" id="soLuong" name="ngayGiao">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Sản phẩm 1</label><select
+									class="form-control" id="exampleSelect2" name="maSP1">
+									<%
+										for (int k = 0; k < listSanPham.size(); k++) {
+											String ma = listSanPham.get(k).getMaSP();
+											String name = listSanPham.get(k).getTen();
+									%>
+									<option value="<%=ma%>"><%=name%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Số lượng</label> <input
+									type="text" class="form-control" id="soLuong" name="soLuong1"
+									placeholder="Số Lượng sản phẩm 1">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Sản phẩm 2</label><select
+									class="form-control" id="exampleSelect2" name="maSP2">
+									<%
+										for (int k = 0; k < listSanPham.size(); k++) {
+											String ma = listSanPham.get(k).getMaSP();
+											String name = listSanPham.get(k).getTen();
+									%>
+									<option value="<%=ma%>"><%=name%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Số lượng</label> <input
+									type="text" class="form-control" id="soLuong" name="soLuong2"
+									placeholder="Số Lượng sản phẩm 2">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Sản phẩm 3</label><select
+									class="form-control" id="exampleSelect2" name="maSP3">
+									<%
+										for (int k = 0; k < listSanPham.size(); k++) {
+											String ma = listSanPham.get(k).getMaSP();
+											String name = listSanPham.get(k).getTen();
+									%>
+									<option value="<%=ma%>"><%=name%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Số lượng</label> <input
+									type="text" class="form-control" id="soLuong" name="soLuong3"
+									placeholder="Số Lượng sản phẩm 3">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Sản phẩm 4</label><select
+									class="form-control" id="exampleSelect2" name="maSP4">
+									<%
+										for (int k = 0; k < listSanPham.size(); k++) {
+											String ma = listSanPham.get(k).getMaSP();
+											String name = listSanPham.get(k).getTen();
+									%>
+									<option value="<%=ma%>"><%=name%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Số lượng</label> <input
+									type="text" class="form-control" id="soLuong" name="soLuong4"
+									placeholder="Số Lượng sản phẩm 4">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Sản phẩm 5</label><select
+									class="form-control" id="exampleSelect2" name="maSP5">
+									<%
+										for (int k = 0; k < listSanPham.size(); k++) {
+											String ma = listSanPham.get(k).getMaSP();
+											String name = listSanPham.get(k).getTen();
+									%>
+									<option value="<%=ma%>"><%=name%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Số lượng</label> <input
+									type="text" class="form-control" id="soLuong" name="soLuong5"
+									placeholder="Số Lượng sản phẩm 5">
+							</div>
+							<input type="submit" class="btn btn-primary" value="Tạo">
+						</form>
+					</div>
 				</div>
 				<br>
 				<!-- Table Don hang -->

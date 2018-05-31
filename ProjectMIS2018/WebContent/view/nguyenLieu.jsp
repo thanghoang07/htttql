@@ -1,9 +1,13 @@
+<%@page import="model.NhaCungCap"%>
+<%@page import="dao.NhaCungCapDAO"%>
+<%@page import="dao.INhaCungCap"%>
+<%@page import="model.LoaiNguyenLieu"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.NguyenLieu"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.INguyenLieu"%>
-<%@page import="dao.QuanLyNguyenLieuDAO"%>
+<%@page import="dao.NguyenLieuDAO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -57,10 +61,69 @@
 					</div>
 				</div>
 				<div>
-					<center>
-						<a href="themNguyenLieu.jsp" class="btn btn-primary">Thêm
-							nguyên liệu mới</a>
-					</center>
+					<button type="button" class="btn btn-info btn-secondary"
+						data-toggle="collapse" data-target="#demo3">
+						<span class="glyphicon glyphicon-plus">&nbsp;Thêm nguyên
+							liệu mới</span>
+					</button>
+					<div id="demo3" class="collapse">
+						<form action="<%=request.getContextPath()%>/themNLieuController"
+							method="post">
+							<div class="col-md-12">
+								<h3>Thêm nguyên liệu cấp mới</h3>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Mã</label> <input type="text"
+									class="form-control" id="maNL" name="maNL"
+									placeholder="Mã nguyên liệu">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Tên</label> <input
+									type="text" class="form-control" id="tenNL" name="tenNL"
+									placeholder="Tên nguyên liệu">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Số lượng</label> <input
+									type="text" class="form-control" id="soLuong" name="soLuong"
+									placeholder="Số Lượng">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Loại nguyên liệu</label>
+								<%
+									INguyenLieu iNguyenLieu = new NguyenLieuDAO();
+															INhaCungCap iNhaCungCap = new NhaCungCapDAO();
+															List<NhaCungCap> listNCC = iNhaCungCap.getListNhaCungCap();
+															List<LoaiNguyenLieu> listLNL = iNguyenLieu.getListLoaiNguyenLieu();
+								%>
+								<select class="form-control" id="exampleSelect2" name="maLoaiNL">
+									<%
+										for (int k = 0; k < listLNL.size(); k++) {
+																		String ma = listLNL.get(k).getMa();
+																		String name = listLNL.get(k).getTen();
+									%>
+									<option value="<%=ma%>"><%=name%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Nhà cung cấp</label><select
+									class="form-control" id="exampleSelect2" name="maNCC">
+									<%
+										for (int k = 0; k < listNCC.size(); k++) {
+																		String ma = listNCC.get(k).getMaNCC();
+																		String name = listNCC.get(k).getTen();
+									%>
+									<option value="<%=ma%>"><%=name%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+							<input type="submit" class="btn btn-primary" value="Tạo">
+						</form>
+					</div>
 				</div>
 				<br>
 				<!-- /.row -->
@@ -79,12 +142,12 @@
 						</thead>
 						<tbody>
 							<%
-								INguyenLieu ngl = new QuanLyNguyenLieuDAO();
-								int count = 0;
-								List<NguyenLieu> listNguyenLieu = new ArrayList<NguyenLieu>();
-								listNguyenLieu = ngl.getList();
-								for (NguyenLieu nl : listNguyenLieu) {
-									count++;
+								INguyenLieu ngl = new NguyenLieuDAO();
+													int count = 0;
+													List<NguyenLieu> listNguyenLieu = new ArrayList<NguyenLieu>();
+													listNguyenLieu = ngl.getList();
+													for (NguyenLieu nl : listNguyenLieu) {
+														count++;
 							%>
 							<tr>
 								<td><%=count%></td>
