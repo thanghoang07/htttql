@@ -44,20 +44,17 @@ public class NhanSuDAO implements INhanSu {
 	}
 
 	@Override
-	public List<NhanSu> layDanhSachNhanSuTheoLoaiNhanSu(String ma_loainhansu)
+	public List<NhanSu> getListNhanSuTheoLoaiNhanSu(String ma_loainhansu)
 			throws ClassNotFoundException, SQLException {
 		pool = new ConnectionPool(url, user, password, driver, 10, 5);
 		Connection con = pool.getConnection();
 
-		String sql = "SELECT * FROM NHANSU ns inner join LOAINHANSU lns on lns.MA_LOAINS = ns.MA_LOAINS where MA_LOAINS='"
-				+ ma_loainhansu + "'";
-
+		String sql = "select * from NHANSU where MA_LOAINS = '" + ma_loainhansu + "';";
+		//
 		ArrayList<NhanSu> listNhanSu = new ArrayList<NhanSu>();
-
+		//
 		PreparedStatement ps = con.prepareStatement(sql);
-
 		ResultSet rs = ps.executeQuery();
-
 		while (rs.next()) {
 			String ma_ns = rs.getString("MA_NS");
 			String ten_ns = rs.getString("TEN_NS");
@@ -66,24 +63,19 @@ public class NhanSuDAO implements INhanSu {
 			boolean gioiTinh = rs.getBoolean("GIOI_TINH");
 			String diachi = rs.getString("DIA_CHI");
 			Date ngayvaolam = rs.getDate("NGAY_VAO_LAM");
-			String tenLoaiNS = rs.getString("TENLOAINS");
-			float luong = rs.getFloat("LUONG");
 			//
-			listNhanSu.add(new NhanSu(ma_ns, ten_ns, ngaysinh, diachi, gioiTinh, ngayvaolam,
-					new LoaiNhanSu(ma_loains, tenLoaiNS, luong)));
+			listNhanSu.add(new NhanSu(ma_ns, ten_ns, ngaysinh, diachi, gioiTinh, ngayvaolam, getLoaiNhanSu(ma_loains)));
 		}
-
 		con.close();
-
 		return listNhanSu;
 	}
 
 	@Override
-	public List<NhanSu> layDanhSachNhanSu() throws ClassNotFoundException, SQLException {
+	public List<NhanSu> getListNhanSu() throws ClassNotFoundException, SQLException {
 		pool = new ConnectionPool(url, user, password, driver, 10, 5);
 		Connection con = pool.getConnection();
 
-		String sql = "SELECT * FROM NHANSU ns inner join LOAINHANSU lns on lns.MA_LOAINS = ns.MA_LOAINS;";
+		String sql = "SELECT * FROM NHANSU;";
 
 		ArrayList<NhanSu> listNhanSu = new ArrayList<NhanSu>();
 
@@ -99,11 +91,8 @@ public class NhanSuDAO implements INhanSu {
 			boolean gioiTinh = rs.getBoolean("GIOI_TINH");
 			String diachi = rs.getString("DIA_CHI");
 			Date ngayvaolam = rs.getDate("NGAY_VAO_LAM");
-			String tenLoaiNS = rs.getString("TENLOAINS");
-			float luong = rs.getFloat("LUONG");
 			//
-			listNhanSu.add(new NhanSu(ma_ns, ten_ns, ngaysinh, diachi, gioiTinh, ngayvaolam,
-					new LoaiNhanSu(ma_loains, tenLoaiNS, luong)));
+			listNhanSu.add(new NhanSu(ma_ns, ten_ns, ngaysinh, diachi, gioiTinh, ngayvaolam, getLoaiNhanSu(ma_loains)));
 		}
 
 		con.close();
@@ -167,7 +156,7 @@ public class NhanSuDAO implements INhanSu {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		NhanSuDAO nsd = new NhanSuDAO();
-		List<NhanSu> list = nsd.layDanhSachNhanSu();
+		List<NhanSu> list = nsd.getListNhanSu();
 		for (NhanSu ns : list) {
 			System.out.println(ns.toString());
 		}

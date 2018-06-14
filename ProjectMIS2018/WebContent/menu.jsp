@@ -1,5 +1,5 @@
 <%@page import="model.LoaiHang"%>
-<%@page import="dao.QuanLyLoaiHangDAO"%>
+<%@page import="dao.LoaiHangDAO"%>
 <%@page import="dao.IQuanLyLoaiHang"%>
 <%@page import="model.LoaiNhanSu"%>
 <%@page import="model.LoaiHang"%>
@@ -43,10 +43,10 @@
 
 	<%
 		IQuanLyNhanSu ql = new QuanLyNhanSuDAO();
-			
-		ArrayList<LoaiNhanSu> listLoaiNhanSu = new ArrayList<LoaiNhanSu>();
 		
-		listLoaiNhanSu = ql.getList();
+			ArrayList<LoaiNhanSu> listLoaiNhanSu = new ArrayList<LoaiNhanSu>();
+			
+			listLoaiNhanSu = ql.getList();
 	%>
 
         <!-- Navigation -->
@@ -183,13 +183,13 @@
                         <ul id="demo" class="collapse">
                         
                         <%
-                                                	IQuanLyLoaiHang qllh = new QuanLyLoaiHangDAO();
-                                                                                                                        
-                                                                                                                        	ArrayList<LoaiHang> listLoaiHang = new ArrayList<LoaiHang>();
-                                                                                                                        
-                                                                                                                        	listLoaiHang = qllh.getList();
-                                                                                                                        	
-                                                                                                                        	for (LoaiHang lh : listLoaiHang) {
+                                                	IQuanLyLoaiHang qllh = new LoaiHangDAO();
+                                                                                                                                                                        
+                                                                                                                                                                        	ArrayList<LoaiHang> listLoaiHang = new ArrayList<LoaiHang>();
+                                                                                                                                                                        
+                                                                                                                                                                        	listLoaiHang = qllh.getList();
+                                                                                                                                                                        	
+                                                                                                                                                                        	for (LoaiHang lh : listLoaiHang) {
                                                 %>
                         
                         

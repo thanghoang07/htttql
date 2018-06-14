@@ -1,14 +1,7 @@
-<%@page import="java.text.DecimalFormat"%>
-<%@page import="model.SanPham"%>
-<%@page import="java.awt.image.SampleModel"%>
-<%@page import="model.DonHang"%>
-<%@page import="dao.DonHangDAO"%>
-<%@page import="dao.IDonHang"%>
-<%@page import="model.KhachHang"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="dao.NhanSuDAO"%>
+<%@page import="dao.INhanSu"%>
+<%@page import="model.NhanSu"%>
 <%@page import="java.util.List"%>
-<%@page import="dao.IKhachHang"%>
-<%@page import="dao.KhachHangDAO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -19,8 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Chi tiết sản phẩm</title>
-<!--  -->
+<title>Chi tiết đơn hàng</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
@@ -48,41 +40,54 @@
 				<!-- Page Heading -->
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Chi Tiết Sản Phẩm</h1>
+						<br>
+						<h1 class="page-header">Chi tiết nhân sự</h1>
+						<br>
+						<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="../index.jsp">Tổng
 									quan</a></li>
 							<li class="breadcrumb-item" aria-current="page"><a
-								href="../quanlysanpham.jsp">Sản phẩm</a></li>
+								href="../khachhang.jsp">Nhân sự</a></li>
 							<li class="breadcrumb-item active" aria-current="page">Chi
-								tiết sản phẩm</li>
+								tiết nhân sự</li>
 						</ol>
+						</nav>
+
 					</div>
 				</div>
 				<!-- /.row -->
 				<div class="table-responsive">
 					<%
-						IDonHang iDonHang = new DonHangDAO();
-						SanPham sanPham = iDonHang.getSanPham(request.getParameter("maSanPham"));
+						INhanSu iNhanSu = new NhanSuDAO();
+						NhanSu ns = iNhanSu.getNhanSu(request.getParameter("maNhanSu"));
 					%>
+					<div>
+						<div class="col-lg-12">
+							<h3 class="page-header"><%="Chức vụ: " + ns.getLoai().getTen_loains() + " - Mã: " + ns.getMaNS()%>
+							</h3>
+						</div>
+					</div>
+
 					<div class="card mb-3">
 						<div class="card-body">
-							<h5 class="card-title"><%=sanPham.getTen()%></h5>
+							<h5 class="card-title"><%=ns.getTenNS()%></h5>
 							<dl class="row">
-								<dt class="text-primary col-sm-4 font-weight-bold">Mã sản
-									phẩm:</dt>
-								<dd class="col-sm-8"><%=sanPham.getMaSP()%></dd>
-								<dt class="text-primary col-sm-4 font-weight-bold">Giá:</dt>
-								<dd class="col-sm-8"><%=new DecimalFormat("#,###,###").format(sanPham.getGia())%></dd>
-								<dt class="text-primary col-sm-4 font-weight-bold">Kích
-									thước:</dt>
-								<dd class="col-sm-8"><%=sanPham.getKichThuoc()%></dd>
-								<dt class="text-primary col-sm-4 font-weight-bold">Số
-									lượng:</dt>
-								<dd class="col-sm-8"><%=sanPham.getSoLuong()%></dd>
+								<dt class="text-primary col-sm-4 font-weight-bold">Mã nhân
+									sự:</dt>
+								<dd class="col-sm-8"><%=ns.getMaNS()%></dd>
+								<dt class="text-primary col-sm-4 font-weight-bold">Giới
+									tính:</dt>
+								<dd class="col-sm-8"><%=ns.getGioiTinh() ? "Nam" : "Nữ"%></dd>
+								<dt class="text-primary col-sm-4 font-weight-bold">Địa chỉ:</dt>
+								<dd class="col-sm-8"><%=ns.getDiaChi()%></dd>
+								<dt class="text-primary col-sm-4 font-weight-bold">Ngày
+									sinh:</dt>
+								<dd class="col-sm-8"><%=ns.getNgaySinh()%></dd>
 							</dl>
 						</div>
 					</div>
+
 				</div>
 				<!-- /.row -->
 			</div>
