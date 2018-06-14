@@ -1,5 +1,4 @@
 <%@page import="model.SanPham"%>
-<%@page import="dao.ISanPham"%>
 <%@page import="model.KhachHang"%>
 <%@page import="dao.KhachHangDAO"%>
 <%@page import="dao.IKhachHang"%>
@@ -256,8 +255,10 @@
 								<td>
 									<div class="btn-group" role="group" aria-label="Basic example">
 										<a class="btn btn-outline-info"
-											href="chiTietDonHang.jsp?maDonHang=<%=dh.getMaDH()%>"> <i
-											class="material-icons">insert_drive_file</i></a> <a href="#"
+											href="<%=request.getContextPath()%>/view/chiTietDonHang.jsp?maDonHang=<%=dh.getMaDH()%>">
+											<i class="material-icons">insert_drive_file</i>
+										</a> <a
+											href="<%=request.getContextPath()%>/view/editDonHang.jsp?maDonHang=<%=dh.getMaDH()%>"
 											class="btn btn-outline-warning"> <i
 											class="material-icons">edit</i></a> <a href="#"
 											class="btn btn-outline-danger"> <i class="material-icons">delete_sweep</i></a>

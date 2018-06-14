@@ -38,7 +38,7 @@ public class AutoID {
 		return ma;
 	}
 
-	// SPXYYYYMMDDAA
+	// SPXAA
 	public String autoMaSanPham(String maLoaiHang) throws ClassNotFoundException, SQLException {
 		IDonHang iDonHang = new DonHangDAO();
 		String maSanPham = iDonHang.getMaSanPham();
@@ -98,10 +98,6 @@ public class AutoID {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		AutoID t = new AutoID();
-		// System.out.println(t.autoMaDonHang());
-		// System.out.println(t.autoMaSanPham("BAN"));
-		// System.out.println(Boolean.valueOf("true") + " | " +
-		// Boolean.valueOf("false"));
-		System.out.println(t.autoMaKhachHang());
+		System.out.println(t.autoMaDonHang());
 	}
 }

@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import controller.themSPController;
+import feature.TongTienDonHang;
 import model.ChiTietDonHang;
 import model.DonHang;
 import model.KhachHang;
@@ -85,14 +87,39 @@ public class DonHangDAO implements IDonHang {
 		return listDonHang;
 	}
 
+	// maNhanSu = rs.getString("MA_NS");
+	// maKhachHang = rs.getString("MA_KH");
+	// tongTien = rs.getFloat("TONG_TIEN");
+	// ngayNhan = rs.getDate("NGAY_NHAN");
+	// ngayGiao = rs.getDate("NGAY_GIAO");
+	// maTrangThai = rs.getString("MA_TTDH");
 	@Override
-	public void xoaDonHang(String ma_kh) {
-		// TODO Auto-generated method stub
-
+	public void updateDonHang(DonHang donHang) throws ClassNotFoundException, SQLException {
+		TongTienDonHang tongTien = new TongTienDonHang();
+		//
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection conn = pool.getConnection();
+		//
+		String sql = "UPDATE DONHANG SET MA_NS = N'" + donHang.getNhanVienKD().getMaNS() + "', MA_KH = N'"
+				+ donHang.getKhachHang().getMa_kh() + "', TONG_TIEN = "
+				+ tongTien.tongTien(donHang.getChiTietDonHang().getSanPhamSoLuong()) + ", NGAY_NHAN = '"
+				+ donHang.getNgayNhan() + "', NGAY_GIAO = '" + donHang.getNgayGiao() + "', MA_TTDH = '"
+				+ donHang.getTrangThai().getMaTrangThai() + "' WHERE MA_DH = '" + donHang.getMaDH() + "'";
+		System.out.println("SQL:" + sql);
+		// goi ham update chi tiet don hang
+		updateChiTietDonHang(donHang.getMaDH(), donHang.getChiTietDonHang());
+		//
+		try {
+			Statement stmt = null;
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void updateDonHang(DonHang kh) {
+	public void xoaDonHang(String ma_kh) {
 		// TODO Auto-generated method stub
 
 	}
@@ -384,6 +411,26 @@ public class DonHangDAO implements IDonHang {
 	}
 
 	@Override
+	public void suaSanPham(String maSanPham, SanPham sanPham) throws ClassNotFoundException, SQLException {
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection conn = pool.getConnection();
+		//
+		String sql = "UPDATE SANPHAM SET TEN_SP = N'" + sanPham.getTen() + "', SO_LUONG = " + sanPham.getSoLuong()
+				+ ", GIA = " + sanPham.getGia() + ",KICH_THUOC = N'" + sanPham.getKichThuoc() + "', MA_LH = '"
+				+ sanPham.getLoaiHang().getMa_loaihang() + "', URL_HINH = N'" + sanPham.getUrlHinh()
+				+ "' WHERE MA_SP = '" + maSanPham + "'";
+		System.out.println("SQL:" + sql);
+		//
+		try {
+			Statement stmt = null;
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
 	public void themChiTietDonHang(ChiTietDonHang ctdh) throws ClassNotFoundException, SQLException {
 		try {
 			pool = new ConnectionPool(url, user, password, driver, 10, 5);
@@ -405,4 +452,26 @@ public class DonHangDAO implements IDonHang {
 		}
 	}
 
+	@Override
+	public void updateChiTietDonHang(String maDonHang, ChiTietDonHang chiTiet)
+			throws ClassNotFoundException, SQLException {
+		try {
+			pool = new ConnectionPool(url, user, password, driver, 10, 5);
+			Connection conn = pool.getConnection();
+			//
+			HashMap<SanPham, Integer> spSL = chiTiet.getSanPhamSoLuong();
+			//
+			for (Entry<SanPham, Integer> entry : spSL.entrySet()) {
+				String sql = "update CHITIETDONHANG set MA_SP = N'" + entry.getKey().getMaSP() + "', SOLUONG = "
+						+ entry.getValue() + " WHERE MA_DH = '" + chiTiet.getMaDonHang() + "';";
+				System.out.println("SQL:" + sql);
+				//
+				Statement stmt = null;
+				stmt = conn.createStatement();
+				stmt.executeUpdate(sql);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
