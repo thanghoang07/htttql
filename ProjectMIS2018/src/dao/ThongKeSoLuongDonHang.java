@@ -16,14 +16,13 @@ public class ThongKeSoLuongDonHang {
 
 	public ThongKeSoLuongDonHang() {}
 	
-	public ArrayList<String> layMAKH() throws ClassNotFoundException, SQLException {
+	public List<String> layMAKH() throws ClassNotFoundException, SQLException {
 		pool = new ConnectionPool(url, user, password, driver, 10, 5);
 		Connection con = pool.getConnection();
 		
 		String sql = "SELECT DONHANG.MA_KH FROM DONHANG INNER JOIN KHACHHANG ON KHACHHANG.MA_KH = DONHANG.MA_KH GROUP BY DONHANG.MA_KH;";
 		
-		ArrayList<String> listMAKH = new ArrayList<String>();
-		
+		List<String> listMAKH = new ArrayList<String>();
 		PreparedStatement ps = con.prepareStatement(sql);
 		
 		ResultSet rs = ps.executeQuery();

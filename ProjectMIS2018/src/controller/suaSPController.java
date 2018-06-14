@@ -12,20 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.DonHangDAO;
 import dao.IDonHang;
-import feature.AutoID;
 import model.SanPham;
 
 /**
- * Servlet implementation class themSPController
+ * Servlet implementation class suaSPController
  */
-@WebServlet("/themSPController")
-public class themSPController extends HttpServlet {
+@WebServlet("/suaSPController")
+public class suaSPController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public themSPController() {
+	public suaSPController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -46,12 +45,13 @@ public class themSPController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		//
 		RequestDispatcher rd;
-		// HttpSession se = request.getSession();
 		//
+		String maSP = request.getParameter("maSP");
 		String tenSP = request.getParameter("tenSP");
 		int soLuong = Integer.parseInt(request.getParameter("soLuong"));
 		float gia = Float.parseFloat(request.getParameter("gia"));
@@ -60,10 +60,9 @@ public class themSPController extends HttpServlet {
 		String hinh = request.getParameter("hinh");
 		//
 		IDonHang iDonHang = new DonHangDAO();
-		AutoID autoID = new AutoID();
 		try {
-			iDonHang.themSanPham(new SanPham(autoID.autoMaSanPham(maLoaiHang), tenSP, soLuong, gia, kichThuoc,
-					iDonHang.getLoaiHang(maLoaiHang), hinh));
+			iDonHang.suaSanPham(maSP,
+					new SanPham(maSP, tenSP, soLuong, gia, kichThuoc, iDonHang.getLoaiHang(maLoaiHang), hinh));
 			rd = getServletContext().getRequestDispatcher(
 					"/view/quanlysanpham.jsp?maLoaiHang=" + iDonHang.getLoaiHang(maLoaiHang).getMa_loaihang() + "");
 			rd.forward(request, response);
@@ -71,7 +70,6 @@ public class themSPController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 }

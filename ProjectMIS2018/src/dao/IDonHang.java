@@ -24,7 +24,7 @@ public interface IDonHang {
 	public void xoaDonHang(String ma_kh);
 
 	// Update khach hang.
-	public void updateDonHang(DonHang kh);
+	public void updateDonHang(DonHang kh) throws ClassNotFoundException, SQLException;
 
 	// Trang thai don hang
 	public TrangThaiDonHang getTrangThai(String maTrangThai) throws ClassNotFoundException, SQLException;
@@ -41,6 +41,10 @@ public interface IDonHang {
 
 	// lay chi tiet don hang
 	public ChiTietDonHang getChiTietDonHang(String maDonHang) throws ClassNotFoundException, SQLException;
+
+	// cap nhat chi tiet don hang
+	public void updateChiTietDonHang(String maDonHang, ChiTietDonHang chiTiet)
+			throws ClassNotFoundException, SQLException;
 
 	// lya don hang
 	public DonHang getDonHang(String maDonHang) throws ClassNotFoundException, SQLException;
@@ -62,4 +66,6 @@ public interface IDonHang {
 	// them san pham
 	public void themSanPham(SanPham sanPham);
 
+	// sua san pham
+	public void suaSanPham(String id, SanPham sanPham) throws ClassNotFoundException, SQLException;
 }

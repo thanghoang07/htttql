@@ -91,15 +91,15 @@
 								<label for="exampleInputPassword1">Loại nguyên liệu</label>
 								<%
 									INguyenLieu iNguyenLieu = new NguyenLieuDAO();
-															INhaCungCap iNhaCungCap = new NhaCungCapDAO();
-															List<NhaCungCap> listNCC = iNhaCungCap.getListNhaCungCap();
-															List<LoaiNguyenLieu> listLNL = iNguyenLieu.getListLoaiNguyenLieu();
+									INhaCungCap iNhaCungCap = new NhaCungCapDAO();
+									List<NhaCungCap> listNCC = iNhaCungCap.getListNhaCungCap();
+									List<LoaiNguyenLieu> listLNL = iNguyenLieu.getListLoaiNguyenLieu();
 								%>
 								<select class="form-control" id="exampleSelect2" name="maLoaiNL">
 									<%
 										for (int k = 0; k < listLNL.size(); k++) {
-																		String ma = listLNL.get(k).getMa();
-																		String name = listLNL.get(k).getTen();
+											String ma = listLNL.get(k).getMa();
+											String name = listLNL.get(k).getTen();
 									%>
 									<option value="<%=ma%>"><%=name%></option>
 									<%
@@ -112,8 +112,8 @@
 									class="form-control" id="exampleSelect2" name="maNCC">
 									<%
 										for (int k = 0; k < listNCC.size(); k++) {
-																		String ma = listNCC.get(k).getMaNCC();
-																		String name = listNCC.get(k).getTen();
+											String ma = listNCC.get(k).getMaNCC();
+											String name = listNCC.get(k).getTen();
 									%>
 									<option value="<%=ma%>"><%=name%></option>
 									<%
@@ -143,11 +143,11 @@
 						<tbody>
 							<%
 								INguyenLieu ngl = new NguyenLieuDAO();
-													int count = 0;
-													List<NguyenLieu> listNguyenLieu = new ArrayList<NguyenLieu>();
-													listNguyenLieu = ngl.getList();
-													for (NguyenLieu nl : listNguyenLieu) {
-														count++;
+								int count = 0;
+								List<NguyenLieu> listNguyenLieu = new ArrayList<NguyenLieu>();
+								listNguyenLieu = ngl.getList();
+								for (NguyenLieu nl : listNguyenLieu) {
+									count++;
 							%>
 							<tr>
 								<td><%=count%></td>
@@ -156,10 +156,12 @@
 								<td><%=nl.getSoLuong()%></td>
 								<td><%=nl.getLoai().getTen()%></td>
 								<td><a
-									href="chiTietNhaCungCap.jsp?maNhaCungCap=<%=nl.getNhaCungCap().getMaNCC()%>"><%=nl.getNhaCungCap().getTen()%></a></td>
-								<td><a href="#" class="btn btn-outline-warning"> <i
-										class="material-icons">edit</i></a> <a href="#"
-									class="btn btn-outline-danger"> <i class="material-icons">delete_sweep</i></a></td>
+									href="<%=request.getContextPath()%>/view/chiTietNhaCungCap.jsp?maNhaCungCap=<%=nl.getNhaCungCap().getMaNCC()%>"><%=nl.getNhaCungCap().getTen()%></a></td>
+								<td><a
+									href="<%=request.getContextPath()%>/view/editNguyenLieu.jsp?maNguyenLieu=<%=nl.getMaNL()%>"
+									class="btn btn-outline-warning"> <i class="material-icons">edit</i></a>
+									<a href="#" class="btn btn-outline-danger"> <i
+										class="material-icons">delete_sweep</i></a></td>
 							</tr>
 							<%
 								}
