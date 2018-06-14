@@ -50,6 +50,26 @@ public class NguyenLieuDAO implements INguyenLieu {
 	}
 
 	@Override
+	public void updateNguyenLieu(String maNguyenLieu, NguyenLieu nguyenLieu)
+			throws ClassNotFoundException, SQLException {
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection conn = pool.getConnection();
+		//
+		String sql = "UPDATE NGUYENLIEU SET TEN_NL = N'" + nguyenLieu.getTen() + "', SO_LUONG = "
+				+ nguyenLieu.getSoLuong() + ", MA_LNL = N'" + nguyenLieu.getLoai().getMa() + "', MA_NCC = N'"
+				+ nguyenLieu.getNhaCungCap().getMaNCC() + "' WHERE MA_NL = '" + maNguyenLieu + "'";
+		System.out.println("SQL:" + sql);
+		//
+		try {
+			Statement stmt = null;
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
 	public NguyenLieu getLoaiHang(String maNguyenLieu) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		return null;
@@ -57,12 +77,6 @@ public class NguyenLieuDAO implements INguyenLieu {
 
 	@Override
 	public void xoaNguyenLieu(String maNguyenLieu) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void updateNguyenLieu(NguyenLieu nguyenLieu) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 
 	}
@@ -137,5 +151,30 @@ public class NguyenLieuDAO implements INguyenLieu {
 			list.add(new LoaiNguyenLieu(maLoaiNguyenLieu, tenLoaiNL));
 		}
 		return list;
+	}
+
+	@Override
+	public NguyenLieu getNguyenLieu(String maNguyenLieu) throws ClassNotFoundException, SQLException {
+		pool = new ConnectionPool(url, user, password, driver, 10, 5);
+		Connection con = pool.getConnection();
+		//
+		String sql = "select * from NGUYENLIEU Where MA_NL = '" + maNguyenLieu + "'";
+		//
+		INhaCungCap iNhaCungCap = new NhaCungCapDAO();
+		String tenNL = null, maLNL = null, maNCC = null;
+		int soLuong = 0;
+		//
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		//
+		while (rs.next()) {
+			tenNL = rs.getString("TEN_NL");
+			soLuong = rs.getInt("SO_LUONG");
+			maLNL = rs.getString("MA_LNL");
+			maNCC = rs.getString("MA_NCC");
+		}
+		con.close();
+		//
+		return new NguyenLieu(maNguyenLieu, tenNL, soLuong, getLoaiNguyenLieu(maLNL), iNhaCungCap.getNhaCungCap(maNCC));
 	}
 }

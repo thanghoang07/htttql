@@ -14,6 +14,9 @@ public interface INguyenLieu {
 	public NguyenLieu getLoaiHang(String maNguyenLieu) throws ClassNotFoundException, SQLException;
 
 	// Lay loai hang theo ma loai.
+	public NguyenLieu getNguyenLieu(String maNguyenLieu) throws ClassNotFoundException, SQLException;
+
+	// Lay loai hang theo ma loai.
 	public LoaiNguyenLieu getLoaiNguyenLieu(String maLoaiNguyenLieu) throws ClassNotFoundException, SQLException;
 
 	// Lay loai hang theo ma loai.
@@ -23,7 +26,8 @@ public interface INguyenLieu {
 	public void xoaNguyenLieu(String maNguyenLieu) throws ClassNotFoundException, SQLException;
 
 	// Update loai hang.
-	public void updateNguyenLieu(NguyenLieu nguyenLieu) throws ClassNotFoundException, SQLException;
+	public void updateNguyenLieu(String maNguyenLieu, NguyenLieu nguyenLieu)
+			throws ClassNotFoundException, SQLException;
 
 	public void themNguyenLieu(NguyenLieu nguyenLieu);
 }

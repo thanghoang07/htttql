@@ -5,7 +5,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.DonHangDAO"%>
-<%@page import="dao.ISanPham"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
@@ -146,9 +145,10 @@
 								<td>
 									<div class="btn-group" role="group" aria-label="Basic example">
 										<a class="btn btn-outline-info"
-											href="chiTietSanPham.jsp?maSanPham=<%=sp.getMaSP()%>"> <i
+											href="<%=request.getContextPath()%>/view/chiTietSanPham.jsp?maSanPham=<%=sp.getMaSP()%>"> <i
 											class="material-icons">insert_drive_file</i>
-										</a> <a href="#" class="btn btn-outline-warning"> <i
+										</a> <a href="<%=request.getContextPath()%>/view/editSanPham.jsp?maSanPham=<%=sp.getMaSP()%>"
+											class="btn btn-outline-warning"> <i
 											class="material-icons">edit</i></a> <a href="#"
 											class="btn btn-outline-danger"> <i class="material-icons">delete_sweep</i></a>
 									</div>

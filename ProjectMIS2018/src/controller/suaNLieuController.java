@@ -10,22 +10,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.DonHangDAO;
-import dao.IDonHang;
-import feature.AutoID;
-import model.SanPham;
+
+import dao.INguyenLieu;
+import dao.INhaCungCap;
+import dao.NguyenLieuDAO;
+import dao.NhaCungCapDAO;
+import model.NguyenLieu;
+
 
 /**
- * Servlet implementation class themSPController
+ * Servlet implementation class suaNLieuController
  */
-@WebServlet("/themSPController")
-public class themSPController extends HttpServlet {
+@WebServlet("/suaNLieuController")
+public class suaNLieuController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public themSPController() {
+	public suaNLieuController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -46,32 +49,31 @@ public class themSPController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		//
 		RequestDispatcher rd;
-		// HttpSession se = request.getSession();
 		//
-		String tenSP = request.getParameter("tenSP");
+		String maNL = request.getParameter("maNL");
+		String tenNL = request.getParameter("tenNL");
 		int soLuong = Integer.parseInt(request.getParameter("soLuong"));
-		float gia = Float.parseFloat(request.getParameter("gia"));
-		String kichThuoc = request.getParameter("kichThuoc");
-		String maLoaiHang = request.getParameter("maLoaiHang");
-		String hinh = request.getParameter("hinh");
+		String maLoaiNguyenLieu = request.getParameter("maLoaiNL");
+		String maNCC = request.getParameter("maNCC");
 		//
-		IDonHang iDonHang = new DonHangDAO();
-		AutoID autoID = new AutoID();
+		INhaCungCap iNhaCungCap = new NhaCungCapDAO();
+		INguyenLieu iNguyenLieu = new NguyenLieuDAO();
+		//
 		try {
-			iDonHang.themSanPham(new SanPham(autoID.autoMaSanPham(maLoaiHang), tenSP, soLuong, gia, kichThuoc,
-					iDonHang.getLoaiHang(maLoaiHang), hinh));
-			rd = getServletContext().getRequestDispatcher(
-					"/view/quanlysanpham.jsp?maLoaiHang=" + iDonHang.getLoaiHang(maLoaiHang).getMa_loaihang() + "");
+			iNguyenLieu.updateNguyenLieu(maNL, new NguyenLieu(maNL, tenNL, soLuong,
+					iNguyenLieu.getLoaiNguyenLieu(maLoaiNguyenLieu), iNhaCungCap.getNhaCungCap(maNCC)));
+			//
+			rd = getServletContext().getRequestDispatcher("/view/nguyenLieu.jsp");
 			rd.forward(request, response);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 }
